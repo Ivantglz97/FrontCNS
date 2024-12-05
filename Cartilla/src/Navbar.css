@@ -1,0 +1,48 @@
+/* Estilos para la Navbar */
+.navbar {
+    width: 80%;
+    background: linear-gradient(135deg, #eaeaeb, #f5f5fc); 
+    padding: 15px 20px;
+    display: flex;
+    margin-left: 45px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Empuja los elementos hacia la derecha */
+  }
+  
+  .user-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 1300px;
+  }
+  .username {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Para el hover */
+  .navbar h1:hover {
+    color: #575858;
+  }
+  

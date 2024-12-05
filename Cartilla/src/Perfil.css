@@ -1,0 +1,99 @@
+/* Contenedor principal del perfil */
+.perfil-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Título */
+  .perfil-container h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Card de perfil con restricción de tamaño */
+  .perfil-card {
+    background: #f4f4f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Limita el ancho de la tarjeta */
+    max-height: 500px; /* Limita la altura de la tarjeta */
+    overflow-y: auto; /* Si el contenido es demasiado grande, permite scroll */
+    width: 70%; /* Asegura que ocupe el 100% del contenedor sin exceder el tamaño */
+  }
+  
+  /* Cabecera del perfil */
+  .perfil-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Avatar de perfil */
+  .perfil-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .perfil-details h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .perfil-details p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Estilos del formulario */
+  .perfil-form {
+    display: flex;
+    flex-direction: column; /* Alinea los campos verticalmente */
+    gap: 15px;
+    max-width: 100%; /* Evita que el formulario sobrepase el tamaño de la tarjeta */
+    margin: 0 auto;
+    padding: 0;
+  }
+  
+  /* Fila de formulario */
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%; /* Asegura que cada fila ocupe el 100% del contenedor */
+  }
+  
+  .form-row label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilo de los campos de entrada */
+  .form-row input,
+  .form-row select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    width: 100%; /* Los campos de entrada ocupan el 100% del ancho del contenedor */
+    box-sizing: border-box; /* Incluye el padding dentro del tamaño total del campo */
+  }
+  
+  /* Campos de solo lectura y deshabilitados */
+  .form-row input[readonly],
+  .form-row select[disabled] {
+    background: #f9f9f9;
+  }
+  
+  /* Estilo al hacer focus en los campos */
+  .form-row input:focus,
+  .form-row select:focus {
+    border-color: #8f0d0d;
+    outline: none;
+  }
+  
