@@ -1,0 +1,133 @@
+/* Contenedor principal del formulario */
+.form-card {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #f8f9fa; /* Fondo claro */
+    display: flex;
+    justify-content: center; /* Centra el contenido */
+    flex-direction: column; /* Apila los elementos verticalmente */
+    gap: 30px; /* Espacio entre los elementos */
+  }
+  
+  /* Card del formulario */
+  .form-container {
+    background: #ffffff; /* Fondo blanco */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 940px;
+    width: 100%;
+    display: flex; /* Flexbox para la disposición horizontal */
+    gap: 10px; /* Espaciado entre las columnas */
+    flex-wrap: wrap; /* Para que el contenido se ajuste en pantallas pequeñas */
+  }
+  
+  /* Columna izquierda: Identificación */
+  .left-column {
+    display: flex;
+    flex-direction: column; /* Apila los elementos Vertical */
+    flex: 1; /* Ocupa proporcionalmente el espacio disponible */
+    gap: 20px;
+    min-width: 300px; /* Asegura que no se haga demasiado pequeño */
+  }
+  
+  /* Columna derecha: Domicilio y lugar de nacimiento */
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Ocupa proporcionalmente el espacio disponible */
+    gap: 20px;
+    min-width: 300px; /* Asegura que no se haga demasiado pequeño */
+  }
+  
+  /* Títulos principales de las secciones */
+  h2,
+  h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Formulario */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: fit-content;
+  }
+  
+  label {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  input[type="text"],
+  input[type="date"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Campos de solo lectura y deshabilitados */
+  input[readonly],
+  input[disabled] {
+    background: #f9f9f9;
+  }
+  
+  /* Efecto al hacer focus */
+  input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Diseño responsivo */
+  @media (max-width: 768px) {
+    .form-container {
+      padding: 20px;
+      gap: 20px;
+      flex-direction: column;
+    }
+  
+    .left-column,
+    .right-column {
+      flex: none;
+      width: 100%;
+    }
+  
+    h2,
+    h3 {
+      font-size: 1.25rem;
+    }
+  }
+  
+  .qr-container {
+    width: 48%;
+    margin-left: 20px;
+  }
+  
+  .stop-camera-button, .start-camera-button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .stop-camera-button:hover, .start-camera-button:hover {
+    background-color: #cc3333;
+  }
+  
+  .qr-result {
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+  }
+  
+  

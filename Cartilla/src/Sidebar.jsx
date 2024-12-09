@@ -1,47 +1,58 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Importa useNavigate de react-router-dom
 import './Sidebar.css';
+import logo from './assets/Logo.png'; // Importa la imagen como una variable
 
 const Sidebar = () => {
+  const navigate = useNavigate(); // Define la función de navegación
+
+  const handleLogout = () => {
+    // Aquí puedes agregar lógica para limpiar el estado de autenticación si es necesario
+    // Ejemplo: borrar el token o limpiar el estado de usuario
+
+    // Redirigir al login
+    navigate('/login'); // Redirige a la página de login
+  };
+
   return (
     <aside className="sidebar">
       <div className="logo">
         <img
-          src="/logo.png" /* Cambia esta ruta por tu logo */
+          src={logo} // Usa la variable importada
           alt="Logo"
           className="logo-image"
         />
-        <h1>Cartilla Nacional de Salud</h1>
       </div>
       <nav className="menu">
         <ul>
           <li>
-            <a href="#perfil" className="active">
+            <Link to="/usuario/perfil" className="active">
               <i className="icon">👤</i> Perfil
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#cartilla">
+            <Link to="/usuario/cartilla">
               <i className="icon">📄</i> Cartilla
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#medicamentos">
+            <Link to="/usuario/medicamentos">
               <i className="icon">💊</i> Medicamentos
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#vacunacion">
+            <Link to="/usuario/vacunacion">
               <i className="icon">💉</i> Historial de Vacunación
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#citas">
+            <Link to="/usuario/citas">
               <i className="icon">📅</i> Próximas Citas
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
-      <button className="logout-button">
+      <button className="logout-button" onClick={handleLogout}>
         <i className="icon">🚪</i> Cerrar Sesión
       </button>
     </aside>
@@ -49,5 +60,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
 

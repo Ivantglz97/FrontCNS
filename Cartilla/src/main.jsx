@@ -1,16 +1,33 @@
-// main.jsx
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './Login'; // Asegúrate de que la ruta sea correcta
-import Usuario from './Usuario'; // Asegúrate de que la ruta sea correcta
+import Login from './Login'; 
+import Citas from './Citas'; 
+import Cartilla from './Cartilla';
+import Layout from "./Layout";
+import Medicamentos from './Medicamentos'; 
+import Perfil from './Perfil';
+import Vacunacion from './Vacunacion';
+import { Navigate } from 'react-router-dom';  // Para redirigir
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/usuario" element={<Usuario />} />
+        {/* Ruta de inicio: redirigir automáticamente a /login */}
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        {/* Ruta del Login */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Rutas protegidas bajo Layout */}
+        <Route path="/usuario" element={<Layout />}>
+          <Route path="perfil" element={<Perfil />} /> {/* Ruta relativa */}
+          <Route path="cartilla" element={<Cartilla />} />
+          <Route path="medicamentos" element={<Medicamentos />} />
+          <Route path="vacunacion" element={<Vacunacion />} />
+          <Route path="citas" element={<Citas />} />
+        </Route>
       </Routes>
     </Router>
   </StrictMode>
