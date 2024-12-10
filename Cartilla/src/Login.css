@@ -17,7 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
-    background: linear-gradient(135deg, #8f0d0d, #d23737); /* Degradado directamente en el fondo */
+    background: -webkit-linear-gradient(90deg, #aa0000,#8f0303,#7d0404);background: linear-gradient(90deg, #aa0000,#8f0303,#7d0404);/* Degradado directamente en el fondo */
     padding: 20px;
   }
   

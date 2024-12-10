@@ -2,7 +2,7 @@ import React, {Fragment, useContext} from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
-import Perfil from "./Perfil";
+
 
 import { CRMContext, CRMProvider } from './context/CRMContext';
 

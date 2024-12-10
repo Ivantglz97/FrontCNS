@@ -9,6 +9,7 @@ import {
   Checkbox,
   Paper,
 } from "@mui/material";
+import './Tabla.css'; // Importa el archivo CSS
 
 const Medicamentos = () => {
   const [selected, setSelected] = useState([]);
@@ -27,7 +28,7 @@ const Medicamentos = () => {
   ];
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className="table-container">
       <Table>
         <TableHead>
           <TableRow>

@@ -8,7 +8,9 @@ import Layout from "./Layout";
 import Medicamentos from './Medicamentos'; 
 import Perfil from './Perfil';
 import Vacunacion from './Vacunacion';
-import { Navigate } from 'react-router-dom';  // Para redirigir
+import { Navigate } from 'react-router-dom';  
+import GestionUsuarios from './GestionUsuarios';
+import EscanearDatosG from './EscanearDatosG';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -27,6 +29,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="medicamentos" element={<Medicamentos />} />
           <Route path="vacunacion" element={<Vacunacion />} />
           <Route path="citas" element={<Citas />} />
+          <Route path="gestion" element={<GestionUsuarios />} />
+          <Route path="escanear" element={<EscanearDatosG />} />
         </Route>
       </Routes>
     </Router>

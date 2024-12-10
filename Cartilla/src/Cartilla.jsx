@@ -8,6 +8,7 @@ import ActividadF from './ActividadF';
 import SaludSyR from './SaludSyR';
 import Vacunacion from './Vacunacion';
 
+
 const Cartilla = () => {
   // Estado para mantener la pestaña activa
   const [activeTab, setActiveTab] = useState('datosGenerales');

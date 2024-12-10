@@ -7,7 +7,7 @@ const Calendario = () => {
   const [startDay, setStartDay] = useState(0);
   const [appointments, setAppointments] = useState([
     { date: "2024-12-03", title: "Cita médica general" },
-    { date: "2024-12-10", title: "Revisión de vacunación" },
+    { date: "2024-12-17", title: "Revisión de vacunación" },
     { date: "2024-12-15", title: "Consulta nutricional" },
     { date: "2024-12-22", title: "Chequeo anual" },
   ]);
@@ -142,11 +142,11 @@ const Calendario = () => {
       <div className="calendar-indicator">
         <div className="indicator-item">
           <div className="indicator-box today"></div>
-          <span>Hoy</span>
+          <span>Con Cita</span>
         </div>
         <div className="indicator-item">
           <div className="indicator-box with-cita"></div>
-          <span>Con Cita</span>
+          <span>Hoy</span>
         </div>
       </div>
 

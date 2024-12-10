@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './Tabla.css'
 import {
   Table,
   TableBody,
@@ -27,7 +28,7 @@ const ActividadadF = () => {
   ];
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className="table-container">
       <Table>
         <TableHead>
           <TableRow>

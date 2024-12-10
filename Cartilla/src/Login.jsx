@@ -44,7 +44,7 @@ const Login = () => {
         console.log(error);
         return navigate('/login');
       }
-      
+
     navigate('/usuario/perfil');
   };
 

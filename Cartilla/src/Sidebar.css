@@ -1,115 +1,122 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .sidebar {
-    height: 100vh;
-    width: 260px;
-    background: linear-gradient(135deg, #eaeaeb, #f5f5fc);
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .sidebar .logo {
-    text-align: center;
-    margin-bottom: 20px; /* Espaciado entre el logo y el menú */
-  }
-  
-  .logo-image {
-    width: 200px;
-    margin-bottom: 10px;
-  }
-  
-  .sidebar h1 {
-    font-size: 1.2rem;
-    color: #333;
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  .menu {
-    flex-grow: 1; 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; 
-    align-items: center;
-  }
-  
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%; /* Ocupa todo el ancho disponible */
-  }
-  
-  .menu li {
-    margin: 10px 0;
-  }
-  
-  .menu a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: 2px solid #dadada;
-    background: white;
-    width: 90%; /* Centrado y ajustado */
-    margin: 0 auto; 
-    transition: all 0.3s ease;
-  }
-  
-  .menu a .icon {
-    margin-right: 10px;
-    font-size: 1.2rem;
-  }
-  
-  .menu a.active {
-    background: #ffffff;
-    color: #575858;
-    border-color: #000000;
-  }
-  
-  .menu a:hover {
-    background: #efeff0;
-    color: #000000;
-    border-color: #000000;
-  }
-  
-  .logout-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #3f3b3b;
-    color: white;
-    font-weight: bold;
-    padding: 10px 15px;
-    border: 2px solid #ffcccc;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 90%;
-    margin: 20px auto 0; 
-    margin-bottom: 60px;
-  }
-  
-  .logout-button .icon {
-    margin-right: 10px;
-    font-size: 1.2rem;
-  }
-  
-  .logout-button:hover {
-    background: #e63939;
-    border-color: #e63939;
-  }
-  
-  .logout-button:active {
-    transform: scale(0.98);
-  }
-  
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  height: 100vh;
+  width: 260px;
+  background: linear-gradient(135deg, #4f0000, #ae0606); /* Fondo oscuro */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar .logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-image {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.sidebar h1 {
+  font-size: 1.2rem;
+  color: #ffffff; /* Texto blanco */
+  font-weight: bold;
+  margin: 0;
+}
+
+.menu {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items: center;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #4f0000; /* Texto oscuro */
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 2px solid #000000; /* Borde más claro */
+  background: #fffefe; /* Fondo claro */
+  width: 90%;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.menu a .icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.menu a.active {
+  background: #fa0808; /* Fondo rojo vibrante */
+  color: #ffffff; /* Texto blanco */
+  border-color: #ff5b5b; /* Borde rojo claro */
+}
+
+.menu a:hover {
+  background: #ffc2c2; /* Fondo más claro */
+  color: #4f0000; /* Texto oscuro */
+  border-color: #ff5b5b; /* Borde más vibrante */
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff; /* Fondo blanco */
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  padding: 10px 15px;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 90%;
+  margin: 20px auto 0;
+  margin-bottom: 60px;
+  /* Sombra 3D */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Sombra suave */
+}
+
+/* Efecto al pasar el ratón (hover) */
+.logout-button:hover {
+  background: #e63939;
+  border-color: #e63939;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra más fuerte */
+}
+
+/* Efecto al hacer clic (active) */
+.logout-button:active {
+  transform: scale(0.98); /* Hace que el botón se "apriete" */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Sombra reducida */
+}
+
+
+.logout-button .icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
