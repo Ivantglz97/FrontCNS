@@ -9,7 +9,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Aquí va la lógica para validar el login
-    navigate('/usuario');
+    navigate('/usuario/perfil');
   };
 
   return (
