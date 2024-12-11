@@ -13,6 +13,7 @@ import GestionUsuarios from './GestionUsuarios';
 import EscanearDatosG from './EscanearDatosG';
 
 createRoot(document.getElementById('root')).render(
+  
   <StrictMode>
     <Router>
       <Routes>

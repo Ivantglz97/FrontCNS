@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Perfil.css';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
+
+// Context
+// import { CRMContext } from './context/CRMContext'
+import clienteAxios from './config/axios';
 
 // Simulación de una base de datos 
 const usuarios = [
@@ -11,7 +17,7 @@ const usuarios = [
     edad: 22,
     genero: 'Masculino',
     tipoSangre: 'O-',
-    correo: 'ivanejemplo@gmail.com',
+    correo: 'email1@email.com',
     avatar: '/avatar.png',
   },
   {
@@ -22,24 +28,53 @@ const usuarios = [
     edad: 30,
     genero: 'Femenino',
     tipoSangre: 'A+',
-    correo: 'anaejemplo@gmail.com',
+    correo: 'email2@email.com',
     avatar: '/avatar2.png',
   },
   // Puedes agregar más usuarios aquí
 ];
 
-const Perfil = ({ userId }) => {
+const Perfil = () => {
   // Estado para los datos del perfil
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({});
 
-  // Cargar datos al montar el componente
+  // Obtener el token
+  const token = localStorage.getItem('token');
+  
+  // Obtener datos del token
+  
+  const navigate = useNavigate();
+  
   useEffect(() => {
-    // Simular la carga de datos a partir del ID
-    const usuario = usuarios.find((usuario) => usuario.id === 1);
-    if (usuario) {
-      setUserData(usuario);
+    if(token && token !== '') {
+
+      const datosToken = jwtDecode(token) ? jwtDecode(token) : '';
+      
+      // Query a la API
+      const consultarAPI = async () => {
+        try {
+          const respuesta = await clienteAxios.get(`usuario/${datosToken.id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+  
+          setUserData(respuesta.data)
+        } catch (error) {
+          // Error con autorizacion
+          if(error.response.status === 500) {
+            return navigate('/login');
+          }
+        }
+      }
+      consultarAPI();
+
+    } else {
+      return navigate('/login');
     }
-  }, [userId]); // Dependencia en userId
+    
+  }, [])
+  
 
   if (!userData) {
     return <div>Cargando perfil...</div>; // Mostrar mientras se carga el perfil
@@ -99,7 +134,7 @@ const Perfil = ({ userId }) => {
             <label>Correo</label>
             <input
               type="email"
-              value={userData.correo}
+              value={userData.email}
               readOnly
             />
           </div>
