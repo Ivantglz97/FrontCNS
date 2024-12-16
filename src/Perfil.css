@@ -1,0 +1,169 @@
+/* Contenedor principal del perfil */
+.perfil-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  display: flex;
+  justify-content: center;
+}
+
+/* Card de perfil */
+.perfil-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten automáticamente */
+}
+
+/* Cabecera del perfil (columna izquierda) */
+.perfil-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* Avatar de perfil */
+.perfil-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 2px solid #ddd;
+}
+
+/* Detalles de perfil */
+.perfil-details {
+  text-align: center;
+}
+
+.perfil-details h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.perfil-details p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Formulario (columna derecha) */
+.perfil-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  gap: 20px;
+  flex: 2;
+  width: 100%;
+}
+
+/* Cada fila del formulario */
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Campos de entrada */
+.form-row input,
+.form-row select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campos de solo lectura y deshabilitados */
+.form-row input[readonly],
+.form-row select[disabled] {
+  background: #f9f9f9;
+}
+
+/* Efecto al hacer focus */
+.form-row input:focus,
+.form-row select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Botón de acción (ocupa toda la fila) */
+.perfil-form button {
+  grid-column: span 2; /* Botón ocupa ambas columnas */
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-form button:hover {
+  background-color: #0056b3;
+}
+
+/* MEDIA QUERIES */
+
+/* Ajustes para tablets (pantallas menores a 768px) */
+@media (max-width: 768px) {
+  .perfil-card {
+    flex-direction: column; /* Cambia a disposición vertical */
+    align-items: center;
+  }
+
+  .perfil-form {
+    grid-template-columns: 1fr; /* Una sola columna */
+  }
+
+  .perfil-form button {
+    grid-column: span 1; /* El botón ocupa toda la fila */
+  }
+}
+
+/* Ajustes para móviles (pantallas menores a 576px) */
+@media (max-width: 576px) {
+  .perfil-card {
+    padding: 20px;
+  }
+
+  .perfil-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .perfil-details h3 {
+    font-size: 1.2rem;
+  }
+
+  .perfil-details p {
+    font-size: 0.9rem;
+  }
+
+  .perfil-form {
+    gap: 15px; /* Reduce el espacio entre filas */
+  }
+
+  .form-row input,
+  .form-row select {
+    font-size: 0.9rem; /* Reduce el tamaño de los campos */
+    padding: 8px;
+  }
+
+  .perfil-form button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}

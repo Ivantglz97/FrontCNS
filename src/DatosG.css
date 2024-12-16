@@ -1,0 +1,89 @@
+/* Estilos generales para la tarjeta */
+.card {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Cuerpo de la tarjeta */
+  .card-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Estilo para las columnas */
+  .left-column, .right-column {
+    flex: 1;
+    min-width: 300px;
+    padding: 10px;
+  }
+  
+  /* Estilo para los títulos */
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Estilo para los grupos de formulario */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Estilo para las etiquetas */
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  /* Estilo para los inputs */
+  input[type="text"],
+  input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo para los inputs con valor readonly */
+  input[readonly] {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+  
+  /* Diseño responsivo */
+  @media (max-width: 768px) {
+    .card {
+      padding: 15px;
+    }
+    
+    /* Hacer que las columnas se apilen en pantallas pequeñas */
+    .card-body {
+      flex-direction: column;
+    }
+  
+    .left-column, .right-column {
+      flex: none;
+      width: 100%;
+      padding: 0;
+    }
+  
+    /* Ajustar los márgenes para una mejor visualización */
+    .form-group {
+      margin-bottom: 10px;
+    }
+  
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+  

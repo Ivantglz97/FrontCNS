@@ -1,0 +1,52 @@
+/* Contenedor principal */
+.usuario-page {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    height: 100vh;
+    width: 260px;
+    background: linear-gradient(135deg, #eaeaeb, #f5f5fc);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Mantén la sidebar fija en la izquierda */
+    z-index: 2;
+  }
+  
+  /* Contenido principal */
+  .content {
+    margin-left: 260px; /* Espacio para la sidebar */
+    width: calc(100% - 260px); /* El contenido toma el resto del espacio */
+    padding-top: 60px; /* Espacio para la navbar */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  /* Navbar */
+  .navbar {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 15px;
+    position: fixed; /* Fija la navbar en la parte superior */
+    top: 0;
+    left: 260px; /* Inicia después de la sidebar */
+    z-index: 1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añadir sombra para darle profundidad */
+  }
+  
+  /* Contenido principal dentro de la sección */
+  .main-content {
+    margin-top: 20px;
+    margin-left: 45px;
+    padding: 20px;
+    background: #f8f8f8;
+    min-height: 100vh;
+  }
+  
