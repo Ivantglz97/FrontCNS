@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Cartilla.css'; // Para los estilos personalizados
 import Antecedentes from './Antecedentes';
 import DatosG from './DatosG';
@@ -7,11 +7,36 @@ import Nutricion from './Nutricion';
 import ActividadF from './ActividadF';
 import SaludSyR from './SaludSyR';
 import Vacunacion from './Vacunacion';
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
 
+// Context
+import { CRMContext } from './context/CRMContext'
+
+// Axios
+import clienteAxios from './config/axios';
 
 const Cartilla = () => {
   // Estado para mantener la pestaña activa
   const [activeTab, setActiveTab] = useState('datosGenerales');
+
+  // Estado para las consultas a la API
+  const [userData, setUserData] = useState({});
+  
+  
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+  //   if(userData) {
+      setUserData(JSON.parse(localStorage.getItem('userData')))
+      console.log(userData)
+    // si no hay token redirige a login
+  //   } else {
+  //     return navigate('/login');
+  //   }
+    
+  }, []) 
+
 
   // Función para manejar el cambio de tab
   const handleTabClick = (tabName) => {
@@ -67,7 +92,8 @@ const Cartilla = () => {
 
       {/* Mostrar contenido según la pestaña activa */}
       <div className="tab-content">
-        {activeTab === 'datosGenerales' && <DatosG />}
+        {/* {activeTab === 'datosGenerales' && <DatosG />} */}
+        {activeTab === 'datosGenerales' && <DatosG userData={userData}/>}
         {activeTab === 'antecedentes' && <Antecedentes />}
         {activeTab === 'atencionMedica' && <AtencionM />}
         {activeTab === 'nutricion' && <Nutricion />}

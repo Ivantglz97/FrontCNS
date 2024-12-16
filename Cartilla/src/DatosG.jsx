@@ -38,7 +38,7 @@ const EscanearDatos = ({ userData }) => {
           </div>
           <div className="form-group">
             <label htmlFor="entidadFederativa">Entidad Federativa</label>
-            <input type="text" id="entidadFederativa" name="entidadFederativa" value={userData ? userData.entidadFederativa : ''} readOnly />
+            <input type="text" id="entidadFederativa" name="entidadFederativa" value={userData.entidadFederativa ? userData.entidadFederativa.entidad : ''} readOnly />
           </div>
 
         </div>
@@ -51,7 +51,7 @@ const EscanearDatos = ({ userData }) => {
           </div>
           <div className="form-group">
             <label htmlFor="entidadFederativaNacimiento">Entidad Federativa</label>
-            <input type="text" id="entidadFederativaNacimiento" name="entidadFederativaNacimiento" value={userData ? userData.entidadFederativa : ''} readOnly />
+            <input type="text" id="entidadFederativaNacimiento" name="entidadFederativaNacimiento" value={userData.entidadFederativa ? userData.entidadFederativa.entidad : ''} readOnly />
           </div>
           <div className="form-group">
             <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>

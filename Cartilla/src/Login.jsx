@@ -1,50 +1,37 @@
 // Login.jsx
-import React, {useState, useContext} from 'react';
-import clienteAxios from './config/axios'
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import clienteAxios from './config/axios'
 
-// Context
-import { CRMContext } from './context/CRMContext';
+const Login = () => {
 
-function Login (props) {
-  
-  // Auth y token
-  const [auth, guardarAuth] = useContext(CRMContext);
-  
   // State con los datos del formulario
   const [credenciales, guardarCredenciales] = useState({});
-  
+
   const navigate = useNavigate();
-  
+
   // inicar sesion en el servidor
-  const handleSubmit = async e => {
-    
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
     
     // autenticar al usuario
     try {
-      const respuesta = await clienteAxios.post('/usuario/login', credenciales);
+        const respuesta = await clienteAxios.post('/usuario/login', credenciales);
+        
+        // extraer el token y colocarlo en localstorage
+        const { token } = respuesta.data;
+        localStorage.setItem('token', token);
+  
+        // alerta
+        console.log('Login Correcto');
+        
+      } catch (error) {
+        console.log(error);
+        return navigate('/login');
+      }
       
-      // extraer el token y colocarlo en localstorage
-      const { token } = respuesta.data;
-      localStorage.setItem('token', token);
-      
-      // colocarlo en el state
-      guardarAuth({
-          token, 
-          auth: true
-      })
-      console.log(auth);
-      
-      // alerta
-      console.log('Login Correcto');
-      
-    } catch (error) {
-      console.log(error);
-      return navigate('/login');
-    }
-
     navigate('/usuario/perfil');
   };
 

@@ -1,54 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Perfil.css';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
-
-// Context
-// import { CRMContext } from './context/CRMContext'
+// Axios
 import clienteAxios from './config/axios';
 
-// Simulación de una base de datos 
-const usuarios = [
-  {
-    id: 1,
-    nombre: 'Ivan',
-    apellidoPaterno: 'Trejo',
-    apellidoMaterno: 'Gonzalez',
-    edad: 22,
-    genero: 'Masculino',
-    tipoSangre: 'O-',
-    correo: 'email1@email.com',
-    avatar: '/avatar.png',
-  },
-  {
-    id: 2,
-    nombre: 'Ana',
-    apellidoPaterno: 'Lopez',
-    apellidoMaterno: 'Martínez',
-    edad: 30,
-    genero: 'Femenino',
-    tipoSangre: 'A+',
-    correo: 'email2@email.com',
-    avatar: '/avatar2.png',
-  },
-  // Puedes agregar más usuarios aquí
-];
 
 const Perfil = () => {
   // Estado para los datos del perfil
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState();
 
   // Obtener el token
   const token = localStorage.getItem('token');
   
-  // Obtener datos del token
-  
   const navigate = useNavigate();
   
   useEffect(() => {
-    if(token && token !== '') {
-
-      const datosToken = jwtDecode(token) ? jwtDecode(token) : '';
+    if(token !== '') {
+      
+      // Obtener datos decoficando el token
+      const datosToken = jwtDecode(token);
       
       // Query a la API
       const consultarAPI = async () => {
@@ -58,8 +29,14 @@ const Perfil = () => {
               Authorization: `Bearer ${token}`
             }
           });
-  
+
+          // Almacenar datos del usuario en localStorage
+          localStorage.setItem('userData', JSON.stringify(respuesta.data));
+          
+          // Guardar respuesta del Query en el state
           setUserData(respuesta.data)
+          console.log('Data desde perfil: ', userData)
+
         } catch (error) {
           // Error con autorizacion
           if(error.response.status === 500) {
@@ -69,12 +46,12 @@ const Perfil = () => {
       }
       consultarAPI();
 
+    // si no hay token redirige a login
     } else {
       return navigate('/login');
     }
     
   }, [])
-  
 
   if (!userData) {
     return <div>Cargando perfil...</div>; // Mostrar mientras se carga el perfil
