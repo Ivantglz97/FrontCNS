@@ -1,7 +1,10 @@
 import React from 'react';
 import './DatosG.css';
+import QRCode from 'react-qr-code'; // Importamos la librería
 
 const EscanearDatos = ({ userData }) => {
+  const id = 1; // El id que deseas usar para generar el QR, en este caso es estático
+
   return (
     <div className="card">
       <div className="card-body">
@@ -55,6 +58,12 @@ const EscanearDatos = ({ userData }) => {
           <div className="form-group">
             <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
             <input type="date" id="fechaNacimiento" name="fechaNacimiento" value={userData ? userData.fechaNacimiento : ''} readOnly />
+          </div>
+
+          {/* Aquí añadimos el código QR */}
+          <div className="qr-code-container" style={{ marginTop: '20px', textAlign: 'center' }}>
+            <h4>QR de la Cartilla</h4>
+            <QRCode value={`id=${id}`} />
           </div>
         </div>
       </div>
