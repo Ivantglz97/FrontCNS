@@ -22,7 +22,7 @@ const Login = () => {
       </div>
       <div className="right-section">
         <form onSubmit={handleSubmit}>
-          <h2>Bienvenido a la Cartilla de Salud Digital</h2>
+          <h2>Bienvenido a la Cartilla de Salud Digital </h2>
           <label>Usuario</label>
           <input type="text" placeholder="correoejemplo@gmail.com" />
           <label>Contraseña</label>
