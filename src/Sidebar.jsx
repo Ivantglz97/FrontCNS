@@ -70,10 +70,6 @@ const Sidebar = ({ userId }) => {
       <button className="logout-button" onClick={handleLogout}>
         <i className="icon">🚪</i> {!isCollapsed && 'Cerrar Sesión'}
       </button>
-
-      <button onClick={toggleSidebar} className="toggle-btn">
-        {isCollapsed ? '☰' : '×'} {/* Mostrar un ícono de menú o cerrar */}
-      </button>
     </aside>
   );
 };
