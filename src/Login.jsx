@@ -1,17 +1,47 @@
 // Login.jsx
-import React from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import logo from './assets/Logo.png';
 
+// Importar configuracion de axios
+import clienteAxios from './config/axios'
+
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  // State con los datos del formulario
+  const [credenciales, guardarCredenciales] = useState({});
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
     // Aquí va la lógica para validar el login
+    // autenticar al usuario
+    try {
+      const respuesta = await clienteAxios.post('/usuario/login', credenciales);
+      
+      // extraer el token y colocarlo en localstorage
+      // localStorage.setItem('token', token);
+
+      // alerta
+      console.log(respuesta.data);
+      
+    } catch (error) {
+      console.log(error);
+      return navigate('/login');
+    }
+
     navigate('/usuario/perfil');
   };
+
+  // almacenar lo que el usuario escribe en el state
+  const leerDatos = e => {
+    guardarCredenciales({
+        ...credenciales,
+        [e.target.name] : e.target.value
+    })
+  }
 
   return (
     <div className="login-container">
@@ -24,9 +54,19 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <h2>Bienvenido a la Cartilla de Salud Digital </h2>
           <label>Usuario</label>
-          <input type="text" placeholder="correoejemplo@gmail.com" />
+          <input 
+            type="text" 
+            placeholder="correoejemplo@gmail.com" 
+            name='email'
+            onChange={leerDatos}
+          />
           <label>Contraseña</label>
-          <input type="password" placeholder="********" />
+          <input 
+            type="password" 
+            placeholder="********" 
+            name='password'
+            onChange={leerDatos}
+          />
           <div className="options">
             <label>
               <input type="checkbox" /> Recuerdame
