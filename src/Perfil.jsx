@@ -35,11 +35,10 @@ const Perfil = ({ userId }) => {
 
   // Cargar datos al montar el componente
   useEffect(() => {
-    // Simular la carga de datos a partir del ID
-    const usuario = usuarios.find((usuario) => usuario.id === 1);
-    if (usuario) {
-      setUserData(usuario);
-    }
+    
+    const user = JSON.parse(localStorage.getItem('userData'));
+    setUserData(user);
+
   }, [userId]); // Dependencia en userId
 
   if (!userData) {
@@ -52,7 +51,7 @@ const Perfil = ({ userId }) => {
         <div className="perfil-header">
           <h2>Mi Perfil</h2>
           <img
-            src={userData.avatar}
+            src={perfil}
             alt="Avatar"
             className="perfil-avatar"
           />
@@ -100,7 +99,7 @@ const Perfil = ({ userId }) => {
             <label>Correo</label>
             <input
               type="email"
-              value={userData.correo}
+              value={userData.email}
               readOnly
             />
           </div>

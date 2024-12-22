@@ -19,10 +19,11 @@ const Login = () => {
     // Aquí va la lógica para validar el login
     // autenticar al usuario
     try {
-      const respuesta = await clienteAxios.post('/usuario/login', credenciales);
+      const id = await clienteAxios.post('/usuario/login', credenciales);
+      const respuesta = await clienteAxios.get(`/usuario/${id.data.paciente.id}`, credenciales);
       
-      // extraer el token y colocarlo en localstorage
-      // localStorage.setItem('token', token);
+      // extraer el datos de usuario y colocarlo en localstorage
+      localStorage.setItem('userData', JSON.stringify(respuesta.data));
 
       // alerta
       console.log(respuesta.data);

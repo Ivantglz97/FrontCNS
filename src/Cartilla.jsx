@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Cartilla.css'; // Para los estilos personalizados
 import Antecedentes from './Antecedentes';
 import DatosG from './DatosG';
@@ -8,8 +8,10 @@ import ActividadF from './ActividadF';
 import SaludSyR from './SaludSyR';
 import Vacunacion from './Vacunacion';
 
+// Importar axios
+import clienteAxios from './config/axios';
 
-const Cartilla = () => {
+const Cartilla = ({userId}) => {
   // Estado para mantener la pestaña activa
   const [activeTab, setActiveTab] = useState('datosGenerales');
 
@@ -17,6 +19,38 @@ const Cartilla = () => {
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
+
+  // Estado para los datos del perfil
+  const [userData, setUserData] = useState(null);
+
+  // Cargar datos al montar el componente
+  useEffect(() => {
+    
+    const getData = () => {
+      const user = JSON.parse(localStorage.getItem('userData'));
+      try {
+        setUserData(user);
+        // alerta
+        console.log('Datos de cartilla:', user);
+              
+      } catch (error) {
+        console.log(error);
+        return navigate('/login');
+      }
+    }
+    getData();
+
+
+    // Simular la carga de datos a partir del ID
+    // const usuario = usuarios.find((usuario) => usuario.id === 1);
+    // if (usuario) {
+    //   setUserData(usuario);
+    // }
+  }, [userId]); // Dependencia en userId
+
+  if (!userData) {
+    return <div>Cargando cartilla del paciente...</div>; // Mostrar mientras se carga el perfil
+  }
 
   return (
     <div className="tab-container">
@@ -67,7 +101,7 @@ const Cartilla = () => {
 
       {/* Mostrar contenido según la pestaña activa */}
       <div className="tab-content">
-        {activeTab === 'datosGenerales' && <DatosG />}
+        {activeTab === 'datosGenerales' && <DatosG userData={userData} />}
         {activeTab === 'antecedentes' && <Antecedentes />}
         {activeTab === 'atencionMedica' && <AtencionM />}
         {activeTab === 'nutricion' && <Nutricion />}
