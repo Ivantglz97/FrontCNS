@@ -63,7 +63,7 @@ const EscanearDatos = ({ userData }) => {
           {/* Aquí añadimos el código QR */}
           <div className="qr-code-container" style={{ marginTop: '20px', textAlign: 'center' }}>
             <h4>QR de la Cartilla</h4>
-            <QRCode value={`id=${id}`} />
+            <QRCode value={`${id}`} />
           </div>
         </div>
       </div>

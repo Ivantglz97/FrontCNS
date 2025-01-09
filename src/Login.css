@@ -89,6 +89,17 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .options a {
+    color: #ce0303;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .options a:hover {
+    text-decoration: underline;
   }
   
   
@@ -101,7 +112,20 @@ body {
     font-size: 1rem;
     cursor: pointer;
   }
+
+  .register-button {
+    padding: 10px;
+    background: #707070;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
   
+  .register-button:hover {
+    background: #515050;
+  }
   .login-button:hover {
     background: #ad0707;
   }
@@ -110,3 +134,19 @@ body {
     width: 700px;
     margin-bottom: 10px;
   }
+
+  .back-button {
+    
+    width: 10px;
+    background: #707070; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    cursor: pointer; /* Cursor de mano al pasar el mouse */
+    margin-top: 10px; /* Espaciado superior */
+}
+
+.back-button:hover {
+    background: #515050; /* Color de fondo al pasar el mouse */
+}

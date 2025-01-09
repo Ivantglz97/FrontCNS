@@ -17,7 +17,7 @@ const Sidebar = ({ userId }) => {
 
   // Función que determina qué elementos del menú se deben mostrar dependiendo del id de usuario
   const getMenuItems = (userId) => {
-    switch (3) {
+    switch (2) {
       case 1: // Admin
         return [
           { to: "/usuario/perfil", icon: "👤", label: "Perfil" },
