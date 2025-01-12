@@ -19,14 +19,28 @@ const Login = () => {
     // Aquí va la lógica para validar el login
     // autenticar al usuario
     try {
-      const id = await clienteAxios.post('/usuario/login', credenciales);
-      const respuesta = await clienteAxios.get(`/usuario/${id.data.paciente.id}`, credenciales);
-      
-      // extraer el datos de usuario y colocarlo en localstorage
-      localStorage.setItem('userData', JSON.stringify(respuesta.data));
+      const user = await clienteAxios.post('/usuario/login', credenciales);
+      console.log('usertipo:  ', user)
+      let respuesta;
+      switch (user.data.tipo) {
+        case 'paciente':
+          respuesta = await clienteAxios.get(`/usuario/${user.data.id}`, credenciales);
+          break;
 
-      // alerta
-      console.log(respuesta.data);
+        case 'admin': 
+          respuesta = await clienteAxios.get(`/admin/ver-admin/${user.data.id}`, credenciales);
+          break;
+          
+          case 'superAdmin': 
+          respuesta = await clienteAxios.get(`/admin/ver-admin/${user.data.id}`, credenciales);
+          break;
+          
+        default:
+          respuesta = await clienteAxios.get(`/personal/${user.data.id}`, credenciales);
+          break;
+      }
+      
+      localStorage.setItem('userData', JSON.stringify(respuesta.data));
       
     } catch (error) {
       console.log(error);

@@ -51,7 +51,7 @@ const Perfil = ({ userId }) => {
         <div className="perfil-header">
           <h2>Mi Perfil</h2>
           <img
-            src={perfil}
+            src={`http://localhost:3000/img/${userData.foto}`}
             alt="Avatar"
             className="perfil-avatar"
           />

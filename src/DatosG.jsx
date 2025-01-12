@@ -41,7 +41,7 @@ const EscanearDatos = ({ userData }) => {
           </div>
           <div className="form-group">
             <label htmlFor="entidadFederativa">Entidad Federativa</label>
-            <input type="text" id="entidadFederativa" name="entidadFederativa" value={userData ? userData.Asentamiento.d_estado : ''} readOnly />
+            <input type="text" id="entidadFederativa" name="entidadFederativa" value={userData ? userData.Asentamiento.d_estado  : ''} readOnly />
           </div>
         </div>
 
