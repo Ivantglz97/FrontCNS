@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logo from './assets/Logo.png';
 import './Login.css';
 
 const RegistroUsuario = () => {
@@ -33,8 +34,12 @@ const RegistroUsuario = () => {
     return (
         <div className="login-container">
             <div className="left-section">
+            <img src={logo} alt="Logo" className="logo-image" />
                 <h1>Registro de Usuario</h1>
                 <p>Por favor, completa el formulario para registrarte.</p>
+                <button className="back-button" onClick={() => window.history.back()}>
+                    Regresar
+                    </button>
             </div>
             <div className="right-section">
                 <h2>Registro</h2>
@@ -125,30 +130,33 @@ const RegistroUsuario = () => {
                         onChange={handleChange}
                         required
                     />
-
                     <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
                     <input
                         type="date"
-                        id="fechaNacimiento"
-                        name="fechaNacimiento"
-                        value={formData.fechaNacimiento}
-                        onChange={handleChange}
-                        required
-                    />
-
-                    <label htmlFor="genero">Género</label>
-                    <select
-                        id="genero"
-                        name="genero"
-                        value={formData.genero}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Selecciona una opción</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Otro">Otro</option>
-                    </select>
+                            id="fechaNacimiento"
+                            name="fechaNacimiento"
+                            value={formData.fechaNacimiento}
+                            onChange={handleChange}
+                            required
+                            />
+                        
+                    <div className="form-row">
+                    <div className="form-group">  
+                            <label htmlFor="genero">Género</label>
+                            <select
+                                id="genero"
+                                name="genero"
+                                value={formData.genero}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="">Selecciona una opción</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            </div>
+                    </div>
 
                     <label htmlFor="lugarNacimiento">Lugar de Nacimiento</label>
                     <input
@@ -163,9 +171,6 @@ const RegistroUsuario = () => {
 
                     <button type="submit" className="login-button">
                         Registrarse
-                    </button>
-                    <button className="back-button" onClick={() => window.history.back()}>
-                    Volver
                     </button>
                 </form>
             </div>

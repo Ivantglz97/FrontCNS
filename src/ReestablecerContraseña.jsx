@@ -36,7 +36,7 @@ const OlvidasteContrasena = () => {
                     </button>
                 </form>
                 <button className="back-button" onClick={() => window.history.back()}>
-                    Volver
+                    Regresar
                 </button>
             </div>
         </div>

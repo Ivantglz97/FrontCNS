@@ -78,7 +78,7 @@ body {
   
   form input {
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
@@ -136,7 +136,9 @@ body {
   }
 
   .back-button {
-    
+    position: absolute; /* Posición absoluta */
+    top: 2px; /* Separación desde la parte superior */
+    right: 2px; /* Separación desde el lado derecho */
     width: 10px;
     background: #707070; /* Color de fondo */
     color: white; /* Color del texto */
@@ -144,7 +146,6 @@ body {
     border-radius: 5px; /* Bordes redondeados */
     font-size: 0.9rem; /* Tamaño de fuente más pequeño */
     cursor: pointer; /* Cursor de mano al pasar el mouse */
-    margin-top: 10px; /* Espaciado superior */
 }
 
 .back-button:hover {

@@ -7,24 +7,51 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Checkbox,
   Paper,
 } from "@mui/material";
 
 const Antecedentes = () => {
-  const [selected, setSelected] = useState([]);
-
-  const handleSelect = (id) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
   const rows = [
-    { id: 1, fecha: "2024-12-05", hora: "09:00 AM", servicio: "Consulta general", rubrica: "CG-123" },
-    { id: 2, fecha: "2024-12-10", hora: "10:30 AM", servicio: "Chequeo de salud", rubrica: "CH-456" },
-    { id: 3, fecha: "2024-12-12", hora: "02:00 PM", servicio: "Revisión de vacunación", rubrica: "RV-789" },
-    { id: 4, fecha: "2024-12-15", hora: "11:15 AM", servicio: "Consulta nutricional", rubrica: "CN-101" },
+    { 
+      id: 1, 
+      alergias: "Polen, Polvo, Insulina", 
+      discapacidad: "Visual", 
+      cancer: "Cáncer de colón", 
+      cirugias: "Apendice", 
+      diabetes: "Tipo II", 
+      transfusiones: "Sanguínea (2024-09-24)", 
+      otros: "Hipertensión" 
+    },
+    { 
+      id: 2, 
+      alergias: "Pescado, Látex", 
+      discapacidad: "Auditiva", 
+      cancer: "Melanoma", 
+      cirugias: "Rodilla", 
+      diabetes: "Tipo I", 
+      transfusiones: "Plasma (2023-11-10)", 
+      otros: "Asma" 
+    },
+    { 
+      id: 3, 
+      alergias: "Cacahuates, Gatos", 
+      discapacidad: "Motora", 
+      cancer: "Leucemia", 
+      cirugias: "Coronaria", 
+      diabetes: "Pre-diabetes", 
+      transfusiones: "Sanguínea (2024-05-15)", 
+      otros: "Epilepsia" 
+    },
+    { 
+      id: 4, 
+      alergias: "Huevo, Polvo", 
+      discapacidad: "Cognitiva", 
+      cancer: "Cáncer de mama", 
+      cirugias: "Cadera", 
+      diabetes: "Tipo II", 
+      transfusiones: "Sanguínea (2022-08-30)", 
+      otros: "Obesidad" 
+    },
   ];
 
   return (
@@ -32,33 +59,25 @@ const Antecedentes = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>
-              <Checkbox
-                checked={selected.length === rows.length}
-                onChange={() =>
-                  setSelected(selected.length === rows.length ? [] : rows.map((row) => row.id))
-                }
-              />
-            </TableCell>
-            <TableCell>Fecha</TableCell>
-            <TableCell>¿Cual?</TableCell>
-            <TableCell>Edad del Diagnostico</TableCell>
-            <TableCell>Tratamiento/Rehabilitacion y Habilitacion</TableCell>
+            <TableCell>Alergias</TableCell>
+            <TableCell>Discapacidad</TableCell>
+            <TableCell>Cáncer</TableCell>
+            <TableCell>Cirugías</TableCell>
+            <TableCell>Diabetes</TableCell>
+            <TableCell>Transfusiones</TableCell>
+            <TableCell>Otros</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id} selected={selected.includes(row.id)}>
-              <TableCell>
-                <Checkbox
-                  checked={selected.includes(row.id)}
-                  onChange={() => handleSelect(row.id)}
-                />
-              </TableCell>
-              <TableCell>{row.fecha}</TableCell>
-              <TableCell>{row.hora}</TableCell>
-              <TableCell>{row.servicio}</TableCell>
-              <TableCell>{row.rubrica}</TableCell>
+            <TableRow key={row.id}>
+              <TableCell>{row.alergias}</TableCell>
+              <TableCell>{row.discapacidad}</TableCell>
+              <TableCell>{row.cancer}</TableCell>
+              <TableCell>{row.cirugias}</TableCell>
+              <TableCell>{row.diabetes}</TableCell>
+              <TableCell>{row.transfusiones}</TableCell>
+              <TableCell>{row.otros}</TableCell>
             </TableRow>
           ))}
         </TableBody>
