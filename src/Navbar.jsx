@@ -32,14 +32,6 @@ const Navbar = () => {
     <header className="navbar">
       <div className="navbar-content">
         <h1>{`${getTabName()}`}</h1> {/* Muestra el nombre de la pestaña actual */}
-        <div className="user-info">
-          <img
-            src="/user-icon.png" /* Cambia esto por el icono del usuario */
-            alt="Usuario"
-            className="user-icon"
-          />
-          <span className="username">Ivan</span>
-        </div>
       </div>
     </header>
   );

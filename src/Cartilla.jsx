@@ -4,7 +4,7 @@ import Antecedentes from './Antecedentes';
 import DatosG from './DatosG';
 import AtencionM from './AtencionM';
 import Nutricion from './Nutricion';
-import ActividadF from './ActividadF';
+import Estudios from './Estudios';
 import SaludSyR from './SaludSyR';
 import Vacunacion from './Vacunacion';
 
@@ -80,10 +80,10 @@ const Cartilla = ({userId}) => {
         Nutrición
       </div>
       <div
-        className={`tab actividadFisica ${activeTab === 'actividadFisica' ? 'active' : ''}`}
-        onClick={() => handleTabClick('actividadFisica')}
+        className={`tab estudios ${activeTab === 'estudios' ? 'active' : ''}`}
+        onClick={() => handleTabClick('estudios')}
       >
-        Actividad Física
+        Estudios
       </div>
       <div
         className={`tab saludSexualReproductiva ${activeTab === 'saludSexualReproductiva' ? 'active' : ''}`}
@@ -105,7 +105,7 @@ const Cartilla = ({userId}) => {
         {activeTab === 'antecedentes' && <Antecedentes />}
         {activeTab === 'atencionMedica' && <AtencionM />}
         {activeTab === 'nutricion' && <Nutricion />}
-        {activeTab === 'actividadFisica' && <ActividadF />}
+        {activeTab === 'estudios' && <Estudios />}
         {activeTab === 'saludSexualReproductiva' && <SaludSyR />}
         {activeTab === 'vacunacion' && <Vacunacion />}
       </div>

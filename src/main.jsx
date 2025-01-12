@@ -11,6 +11,8 @@ import Vacunacion from './Vacunacion';
 import { Navigate } from 'react-router-dom';  
 import GestionUsuarios from './GestionUsuarios';
 import EscanearDatosG from './EscanearDatosG';
+import ReestablecerContraseña from './ReestablecerContraseña';
+import Registrar from './Registrar'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,6 +23,8 @@ createRoot(document.getElementById('root')).render(
 
         {/* Ruta del Login */}
         <Route path="/login" element={<Login />} />
+        <Route path="/olvidaste-contrasena" element={<ReestablecerContraseña />} />
+        <Route path="/registrar" element={<Registrar />} />
 
         {/* Rutas protegidas bajo Layout */}
         <Route path="/usuario" element={<Layout />}>
