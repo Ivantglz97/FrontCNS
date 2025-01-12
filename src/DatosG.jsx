@@ -3,25 +3,31 @@ import './DatosG.css';
 import QRCode from 'react-qr-code'; // Importamos la librería
 
 const EscanearDatos = ({ userData }) => {
-  const id = 1; // El id que deseas usar para generar el QR, en este caso es estático
 
+  console.log('userData desde datos generales: ', userData)
+
+  const id = userData.id; // El id que deseas usar para generar el QR, en este caso es estático
+
+master
   return (
     <div className="card">
       <div className="card-body">
         <div className="left-column">
+          
           <h3>Identificación</h3>
           <div className="form-group">
             <label htmlFor="curp">CURP</label>
             <input type="text" id="curp" name="curp" value={userData ? userData.curp : ''} readOnly />
           </div>
           <div className="form-group">
-            <label htmlFor="nombre">Nombre y Apellidos</label>
-            <input type="text" id="nombre" name="nombre" value={userData ? userData.nombre : ''} readOnly />
+            <label htmlFor="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" value={userData ? `${userData.nombre} ${userData.apellidoPaterno} ${userData.apellidoMaterno}` : ''} readOnly />
           </div>
           <div className="form-group">
             <label htmlFor="afiliacion">No. de Afiliación</label>
             <input type="text" id="afiliacion" name="afiliacion" value={userData ? userData.afiliacion : ''} readOnly />
           </div>
+
           <h3>Domicilio</h3>
           <div className="form-group">
             <label htmlFor="calleNumero">Calle y Número</label>
@@ -29,19 +35,19 @@ const EscanearDatos = ({ userData }) => {
           </div>
           <div className="form-group">
             <label htmlFor="colonia">Colonia/Localidad</label>
-            <input type="text" id="colonia" name="colonia" value={userData ? userData.colonia : ''} readOnly />
+            <input type="text" id="colonia" name="colonia" value={userData ? userData.Asentamiento.d_asenta : ''} readOnly />
           </div>
           <div className="form-group">
             <label htmlFor="municipio">Municipio o Alcaldía</label>
-            <input type="text" id="municipio" name="municipio" value={userData ? userData.municipio : ''} readOnly />
+            <input type="text" id="municipio" name="municipio" value={userData ? userData.Asentamiento.D_mnpio : ''} readOnly />
           </div>
           <div className="form-group">
             <label htmlFor="codigoPostal">Código Postal</label>
-            <input type="text" id="codigoPostal" name="codigoPostal" value={userData ? userData.codigoPostal : ''} readOnly />
+            <input type="text" id="codigoPostal" name="codigoPostal" value={userData ? userData.Asentamiento.d_codigo : ''} readOnly />
           </div>
           <div className="form-group">
             <label htmlFor="entidadFederativa">Entidad Federativa</label>
-            <input type="text" id="entidadFederativa" name="entidadFederativa" value={userData ? userData.entidadFederativa : ''} readOnly />
+            <input type="text" id="entidadFederativa" name="entidadFederativa" value={userData ? userData.Asentamiento.d_estado  : ''} readOnly />
           </div>
         </div>
 
@@ -71,19 +77,19 @@ const EscanearDatos = ({ userData }) => {
   );
 };
 
-const App = () => {
-  const userData = {
-    curp: 'ABCD123456HDFLRN01',
-    nombre: 'Juan Pérez López',
-    afiliacion: '1234567890',
-    domicilio: 'Calle Falsa 123',
-    colonia: 'Centro',
-    municipio: 'Ciudad de México',
-    codigoPostal: '01000',
-    entidadFederativa: 'Ciudad de México',
-    lugarNacimiento: 'Ciudad de México',
-    fechaNacimiento: '1990-01-01',
-  };
+const App = ({userData}) => {
+  // const userData = {
+  //   curp: 'ABCD123456HDFLRN01',
+  //   nombre: 'Juan Pérez López',
+  //   afiliacion: '1234567890',
+  //   domicilio: 'Calle Falsa 123',
+  //   colonia: 'Centro',
+  //   municipio: 'Ciudad de México',
+  //   codigoPostal: '01000',
+  //   entidadFederativa: 'Ciudad de México',
+  //   lugarNacimiento: 'Ciudad de México',
+  //   fechaNacimiento: '1990-01-01',
+  // };
 
   return (
     <div>
