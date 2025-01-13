@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import './Calendario.css'
 
-const Calendario = () => {
+const Calendario = ({citas}) => {
+  
   const [currentDate, setCurrentDate] = useState(new Date());
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startDay, setStartDay] = useState(0);
-  const [appointments, setAppointments] = useState([
-    { date: "2024-12-03", title: "Cita médica general" },
-    { date: "2024-12-17", title: "Revisión de vacunación" },
-    { date: "2024-12-15", title: "Consulta nutricional" },
-    { date: "2024-12-22", title: "Chequeo anual" },
-  ]);
+  const [appointments, setAppointments] = useState(
+    citas.map(cita => ({
+      ...cita,
+      date: cita.horario.split('T')[0]
+    }))
+  );
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  console.log('appointments desde calendario: ', appointments);
 
   useEffect(() => {
     generateCalendar();
@@ -156,7 +159,8 @@ const Calendario = () => {
           <div className="modal-content">
             <span className="close-btn" onClick={handleCloseModal}>X</span>
             <h2>Cita del {selectedAppointment.date}</h2>
-            <p><strong>Detalles:</strong> {selectedAppointment.title}</p>
+            <p><strong>Detalles:</strong> {selectedAppointment.servicio}</p>
+            <h3>{selectedAppointment.horario.split('T')[1].split(':').slice(0, 2).join(':')} hrs</h3>          
           </div>
         </div>
       )}

@@ -11,7 +11,7 @@ import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'; // Icono de e
 import EventIcon from '@mui/icons-material/Event'; // Icono de citas
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts'; // Icono de gestión de usuarios
 
-const Sidebar = ({ userId }) => {
+const Sidebar = ({ userType }) => {
   const [isCollapsed, setIsCollapsed] = useState(false); // Estado para controlar si está colapsado
   const navigate = useNavigate();
 
@@ -22,16 +22,23 @@ const Sidebar = ({ userId }) => {
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
-
+  
   // Función que determina qué elementos del menú se deben mostrar dependiendo del id de usuario
-  const getMenuItems = (userId) => {
-    switch (2) {
-      case 1: // Admin
+  const getMenuItems = (userType) => {
+    switch (userType) {
+      case 'admin': // Admin
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
           { to: "/usuario/gestion", icon: <ManageAccountsIcon />, label: "Gestión de Usuarios" } // Cambio aquí
         ];
-      case 2: // Salud
+
+      case 'superAdmin': // superAdmin
+        return [
+          { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
+          { to: "/usuario/gestion", icon: <ManageAccountsIcon />, label: "Gestión de Usuarios" } // Cambio aquí
+        ];
+      
+      case 'enfermero': // Enfermero
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
           { to: "/usuario/cartilla", icon: <MenuBookIcon />, label: "Cartilla" },
@@ -39,7 +46,8 @@ const Sidebar = ({ userId }) => {
           { to: "/usuario/vacunacion", icon: <VaccinesIcon />, label: "Historial de Vacunación" },
           { to: "/usuario/escanear", icon: <QrCodeScannerIcon />, label: "Escanear Cartilla" }
         ];
-      case 3: // Usuario
+
+      case 'paciente': // Usuario
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
           { to: "/usuario/cartilla", icon: <MenuBookIcon />, label: "Cartilla" },
@@ -47,7 +55,7 @@ const Sidebar = ({ userId }) => {
           { to: "/usuario/vacunacion", icon: <VaccinesIcon />, label: "Historial de Vacunación" },
           { to: "/usuario/citas", icon: <EventIcon />, label: "Próximas Citas" }
         ];
-      case 4: // Doctor
+      case 'medico': // Medico
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
           { to: "/usuario/escanear", icon: <QrCodeScannerIcon />, label: "Escanear Cartilla" }
@@ -57,7 +65,7 @@ const Sidebar = ({ userId }) => {
     }
   };
 
-  const menuItems = getMenuItems(userId);
+  const menuItems = getMenuItems(userType);
 
   return (
     <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>

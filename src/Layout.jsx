@@ -5,10 +5,14 @@ import Navbar from "./Navbar";
 
 
 const Layout = () => {
+  const user = JSON.parse(localStorage.getItem('userData'));
+  const userType = user.tipo;
+
   return (
+
     <div className="usuario-page">
       {/* Barra lateral */}
-      <Sidebar />
+      <Sidebar userType={userType}/>
 
       {/* Contenido principal */}
       <div className="content">

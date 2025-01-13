@@ -1,33 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './Perfil.css';
-import perfil from './assets/avatar.avif';
-
-// Simulación de una base de datos 
-const usuarios = [
-  {
-    id: 1,
-    nombre: 'Ivan',
-    apellidoPaterno: 'Trejo',
-    apellidoMaterno: 'Gonzalez',
-    edad: 22,
-    genero: 'Masculino',
-    tipoSangre: 'O-',
-    correo: 'ivanejemplo@gmail.com',
-    avatar: perfil,
-  },
-  {
-    id: 2,
-    nombre: 'Ana',
-    apellidoPaterno: 'Lopez',
-    apellidoMaterno: 'Martínez',
-    edad: 30,
-    genero: 'Femenino',
-    tipoSangre: 'A+',
-    correo: 'anaejemplo@gmail.com',
-    avatar: '/avatar2.png',
-  },
-  // Puedes agregar más usuarios aquí
-];
 
 const Perfil = ({ userId }) => {
   // Estado para los datos del perfil
@@ -51,7 +23,7 @@ const Perfil = ({ userId }) => {
         <div className="perfil-header">
           <h2>Mi Perfil</h2>
           <img
-            src={`http://localhost:3000/img/${userData.foto}`}
+            src={`http://localhost:3000/img/${userData.foto ? userData.foto : 'avatar.png'}`}
             alt="Avatar"
             className="perfil-avatar"
           />
@@ -73,10 +45,12 @@ const Perfil = ({ userId }) => {
             <label>Apellido Materno</label>
             <input type="text" value={userData.apellidoMaterno} readOnly />
           </div>
-          <div className="form-row">
-            <label>Edad</label>
-            <input type="number" value={userData.edad} readOnly />
-          </div>
+          {userData.tipo === 'paciente' && (
+            <div className="form-row">
+              <label>Edad</label>
+              <input type="number" value={userData.edad} readOnly />
+            </div>
+          )}
           <div className="form-row">
             <label>Género</label>
             <select value={userData.genero} disabled>
