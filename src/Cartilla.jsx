@@ -23,8 +23,12 @@ const Cartilla = ({userId}) => {
   // Estado para los datos del perfil
   const [userData, setUserData] = useState(null);
 
+  // Estado para los datos de la cartilla
+  // const [cartillaData, setCartillaData] = useState(null);
+
+
   // Cargar datos al montar el componente
-  useEffect(() => {
+  useEffect( () => {
     
     const getData = () => {
       const user = JSON.parse(localStorage.getItem('userData'));
@@ -40,14 +44,23 @@ const Cartilla = ({userId}) => {
     }
     getData();
 
-
-    // Simular la carga de datos a partir del ID
-    // const usuario = usuarios.find((usuario) => usuario.id === 1);
-    // if (usuario) {
-    //   setUserData(usuario);
-    // }
+    
   }, [userId]); // Dependencia en userId
+  
+  const fetchCartilla = async () => {
+    try {
+      const response = await clienteAxios.get(`/usuario/cartilla/${userData.cartillaId}`);
+      localStorage.setItem('cartilla', JSON.stringify(response.data));
+      
+      // setCartillaData(response.data);
+      console.log('Cartilla desde Cartilla.jsx:', response.data);
 
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  fetchCartilla();
+  
   if (!userData) {
     return <div>Cargando cartilla del paciente...</div>; // Mostrar mientras se carga el perfil
   }

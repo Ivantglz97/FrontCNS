@@ -11,12 +11,10 @@ import {
 } from "@mui/material";
 
 const Vacunacion = () => {
-  const rows = [
-    { id: 1, vacuna: "Cancino", dosis: "Anual", fecha: "12/11/24", lote: "A123" },
-    { id: 2, vacuna: "Td", dosis: "Segunda", fecha: "13/03/22", lote: "B456" },
-    { id: 3, vacuna: "Influenza", dosis: "Unica", fecha: "23/11/21", lote: "C789" },
-    { id: 4, vacuna: "Hepatitis B", dosis: "Primera", fecha: "25/01/21", lote: "D012" },
-  ];
+
+  const cartilla = JSON.parse(localStorage.getItem('cartilla'));
+  console.log('vacunacion desde vacunacion: ', cartilla.vacunas);
+  const rows = cartilla.vacunas;
 
   return (
     <TableContainer component={Paper} className="table-container">
@@ -31,11 +29,11 @@ const Vacunacion = () => {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.vacuna}</TableCell>
-              <TableCell>{row.dosis}</TableCell>
-              <TableCell>{row.fecha}</TableCell>
-              <TableCell>{row.lote}</TableCell>
+            <TableRow key={row.id ? row.id : 0}>
+              <TableCell>{row.vacuna ? row.vacuna : '-'}</TableCell>
+              <TableCell>{row.dosis ? row.dosis : '-'}</TableCell>
+              <TableCell>{row.fecha ? row.fecha : '-'}</TableCell>
+              <TableCell>{row.lote ? row.lote : '-'}</TableCell>
             </TableRow>
           ))}
         </TableBody>

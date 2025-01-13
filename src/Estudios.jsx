@@ -11,12 +11,10 @@ import {
 } from "@mui/material";
 
 const Estudios = () => {
-  const rows = [
-    { id: 1, estudio: "Hemograma", fecha: "2023-01-15", resultado: "Normal" },
-    { id: 2, estudio: "Radiografía de tórax", fecha: "2023-02-20", resultado: "Anormal" },
-    { id: 3, estudio: "Prueba de glucosa", fecha: "2023-03-12", resultado: "Normal" },
-    { id: 4, estudio: "Electrocardiograma", fecha: "2023-04-10", resultado: "Normal" },
-  ];
+
+  const cartilla = JSON.parse(localStorage.getItem('cartilla'));
+  console.log('estudios desde estudios: ', cartilla.estudios);
+  const rows = cartilla.estudios;
 
   return (
     <TableContainer component={Paper} className="table-container">
@@ -30,10 +28,10 @@ const Estudios = () => {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.estudio}</TableCell>
-              <TableCell>{row.fecha}</TableCell>
-              <TableCell>{row.resultado}</TableCell>
+            <TableRow key={row.id ? row.id : '0'}>
+              <TableCell>{row.estudio ? row.estudio : '-'}</TableCell>
+              <TableCell>{row.fecha ? row.fecha : '-'}</TableCell>
+              <TableCell>{row.resultado ? row.resultado : '-'}</TableCell>
             </TableRow>
           ))}
         </TableBody>

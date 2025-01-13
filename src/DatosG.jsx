@@ -6,9 +6,8 @@ const EscanearDatos = ({ userData }) => {
 
   console.log('userData desde datos generales: ', userData)
 
-  const id = userData.id; // El id que deseas usar para generar el QR, en este caso es estático
+  const id = userData.id; // El id que deseas usar para generar el QR
 
-master
   return (
     <div className="card">
       <div className="card-body">
@@ -54,12 +53,8 @@ master
         <div className="right-column">
           <h3>Lugar y Fecha de Nacimiento</h3>
           <div className="form-group">
-            <label htmlFor="lugarNacimiento">Municipio o Alcaldía</label>
+            <label htmlFor="lugarNacimiento">Lugar de Nacimiento</label>
             <input type="text" id="lugarNacimiento" name="lugarNacimiento" value={userData ? userData.lugarNacimiento : ''} readOnly />
-          </div>
-          <div className="form-group">
-            <label htmlFor="entidadFederativaNacimiento">Entidad Federativa</label>
-            <input type="text" id="entidadFederativaNacimiento" name="entidadFederativaNacimiento" value={userData ? userData.entidadFederativa : ''} readOnly />
           </div>
           <div className="form-group">
             <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
@@ -78,18 +73,6 @@ master
 };
 
 const App = ({userData}) => {
-  // const userData = {
-  //   curp: 'ABCD123456HDFLRN01',
-  //   nombre: 'Juan Pérez López',
-  //   afiliacion: '1234567890',
-  //   domicilio: 'Calle Falsa 123',
-  //   colonia: 'Centro',
-  //   municipio: 'Ciudad de México',
-  //   codigoPostal: '01000',
-  //   entidadFederativa: 'Ciudad de México',
-  //   lugarNacimiento: 'Ciudad de México',
-  //   fechaNacimiento: '1990-01-01',
-  // };
 
   return (
     <div>

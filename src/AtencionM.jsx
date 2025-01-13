@@ -11,12 +11,15 @@ import {
 } from "@mui/material";
 
 const AtencionM = () => {
-  const rows = [
-    { id: 1, hora: "09:00 AM", servicio: "Consulta general", rubrica: "CG-123" },
-    { id: 2, hora: "10:30 AM", servicio: "Chequeo de salud", rubrica: "CH-456" },
-    { id: 3, hora: "02:00 PM", servicio: "Revisión de vacunación", rubrica: "RV-789" },
-    { id: 4, hora: "11:15 AM", servicio: "Consulta nutricional", rubrica: "CN-101" },
-  ];
+
+  const cartilla = JSON.parse(localStorage.getItem('cartilla'));
+  console.log('citas desde atencion: ', cartilla.cita);
+  const rows = cartilla.cita;
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   return (
     <TableContainer component={Paper} className="table-container">
@@ -30,10 +33,10 @@ const AtencionM = () => {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.hora}</TableCell>
-              <TableCell>{row.servicio}</TableCell>
-              <TableCell>{row.rubrica}</TableCell>
+            <TableRow key={row.id ? row.id : 0}>
+              <TableCell>{row.horario ? formatDate(row.horario) : '-'}</TableCell>
+              <TableCell>{row.servicio ? row.servicio: '-'}</TableCell>
+              <TableCell>{row.clave ? row.clave : '-'}</TableCell>
             </TableRow>
           ))}
         </TableBody>

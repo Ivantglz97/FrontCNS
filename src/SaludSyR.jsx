@@ -11,12 +11,10 @@ import {
 } from "@mui/material";
 
 const SaludSyR = () => {
-  const rows = [
-    { id: 1, accion: "Otorgamiento de preservativo masculino", fecha: "2023-01-01", tipo: "Otorgamiento método anticonceptivo", observaciones: "Paciente recibió método anticonceptivo" },
-    { id: 2, accion: "Consulta médica", fecha: "2023-02-05", tipo: "Consulta general", observaciones: "Paciente con síntomas de resfriado" },
-    { id: 3, accion: "Vacunación", fecha: "2023-03-10", tipo: "Vacuna contra la gripe", observaciones: "Paciente vacunado con éxito" },
-    { id: 4, accion: "Chequeo de salud", fecha: "2023-04-15", tipo: "Chequeo general", observaciones: "Exámenes en proceso" },
-  ];
+
+  const cartilla = JSON.parse(localStorage.getItem('cartilla'));
+  console.log('salud desde salud: ', cartilla.saludSexuals);
+  const rows = cartilla.saludSexuals;
 
   return (
     <TableContainer component={Paper} className="table-container">
@@ -31,11 +29,11 @@ const SaludSyR = () => {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.accion}</TableCell>
-              <TableCell>{row.fecha}</TableCell>
-              <TableCell>{row.tipo}</TableCell>
-              <TableCell>{row.observaciones}</TableCell>
+            <TableRow key={row.id ? row.id : '0'}>
+              <TableCell>{row.accion ? row.accion : '-'}</TableCell>
+              <TableCell>{row.fecha ? row.fecha : '-'}</TableCell>
+              <TableCell>{row.tipo ? row.tipo : '-'}</TableCell>
+              <TableCell>{row.observaciones ? row.observaciones : '-'}</TableCell>
             </TableRow>
           ))}
         </TableBody>
