@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './assets/Logo.png';
 import './Login.css';
+import clienteAxios from './config/axios';
 
 const RegistroUsuario = () => {
     const [formData, setFormData] = useState({
@@ -25,10 +26,22 @@ const RegistroUsuario = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Aquí puedes manejar la lógica para registrar al usuario
-        console.log('Datos enviados:', formData);
+        
+        try {
+            const respuesta = await clienteAxios.post('/personal/registrar-paciente', formData);
+            console.log('Respuesta: ', respuesta);
+            if (respuesta.data.mensaje === 'Se agrego un nuevo paciente') {
+                console.log('Registro exitoso: ', respuesta.data.paciente);
+            } else {
+                console.log('Error en el registro: ', respuesta.data.error);
+            }
+            console.log('Datos enviados:', formData);
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
 
     return (
