@@ -17,6 +17,8 @@ const RegistroUsuario = () => {
         lugarNacimiento: ''
     });
 
+    const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar el modal
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -29,6 +31,19 @@ const RegistroUsuario = () => {
         e.preventDefault();
         // Aquí puedes manejar la lógica para registrar al usuario
         console.log('Datos enviados:', formData);
+        setShowModal(true); // Mostrar el modal después de enviar el formulario
+    };
+
+    const confirmSave = () => {
+        // Lógica para confirmar el registro
+        console.log("Registro confirmado.");
+        setShowModal(false); // Cerrar el modal
+    };
+
+    const cancelSave = () => {
+        // Lógica para cancelar el registro
+        console.log("Registro cancelado.");
+        setShowModal(false); // Cerrar el modal
     };
 
     return (
@@ -174,6 +189,20 @@ const RegistroUsuario = () => {
                     </button>
                 </form>
             </div>
+                        {/* Modal de confirmación */}
+                        {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <h3>Confirmar Datos Ingresados</h3>
+                        <p>¿Son los datos correctos?</p>
+                        <div className="modal-buttons">
+                            <button className="confirm-button" onClick={confirmSave}>Confirmar</button>
+                            <button className="cancel-button" onClick={cancelSave}>Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        
         </div>
     );
 };

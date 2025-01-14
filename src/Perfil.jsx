@@ -84,11 +84,6 @@ const Perfil = ({ userId }) => {
       <div className="perfil-card">
         <div className="perfil-header">
           <h2>Mi Perfil</h2>
-          <img
-            src={`http://localhost:3000/img/${userData.foto}`}
-            alt="Avatar"
-            className="perfil-avatar"
-          />
           <img src={userData.avatar} alt="Avatar" className="perfil-avatar" />
           <div className="perfil-details">
             <h3>{`${userData.nombre} ${userData.apellidoPaterno} ${userData.apellidoMaterno}`}</h3>
