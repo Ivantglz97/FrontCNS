@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import logo from './assets/Logo.png';
 import './Login.css';
+import clienteAxios from './config/axios';
 
 const OlvidasteContrasena = () => {
     const [email, setEmail] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         // Aquí puedes manejar la lógica para enviar el correo de restablecimiento
-        console.log(`Correo enviado a: ${email}`);
+        
+        try {
+            const respuesta = clienteAxios.post('/usuario/reset-password', {email} );
+            console.log('Respuesta: ', respuesta);
+            alert('Se ha enviado un correo para restablecer tu contraseña.');
+        } catch (error) {
+            console.error('Error al enviar el correo:', error);
+        }
+        
+        window.history.back();
     };
 
     return (

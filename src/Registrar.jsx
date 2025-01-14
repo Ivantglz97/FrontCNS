@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './assets/Logo.png';
 import './Login.css';
 import clienteAxios from './config/axios';
@@ -13,12 +13,16 @@ const RegistroUsuario = () => {
         curp: '',
         tipoSangre: '',
         domicilio: '',
+        codigoPostal: '',
+        domicilioId: '',
         fechaNacimiento: '',
         genero: '',
         lugarNacimiento: ''
     });
 
-    const handleChange = (e) => {
+    const [colonias, setColonias] = useState([]);
+
+    const handleChange = async (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -26,22 +30,39 @@ const RegistroUsuario = () => {
         });
     };
 
+    useEffect(() => {
+        if (formData.codigoPostal.length === 5) {
+            clienteAxios.get(`/personal/domicilios/${formData.codigoPostal}`)
+            .then(response => {
+                setColonias(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching colonias:', error);
+            });
+        }
+    }, [formData.codigoPostal]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         
         try {
             const respuesta = await clienteAxios.post('/personal/registrar-paciente', formData);
             console.log('Respuesta: ', respuesta);
+            
             if (respuesta.data.mensaje === 'Se agrego un nuevo paciente') {
                 console.log('Registro exitoso: ', respuesta.data.paciente);
+                alert('Registro exitoso');
             } else {
-                console.log('Error en el registro: ', respuesta.data.error);
+                console.log('Error en el registro: ', respuesta.data.errors);
+                alert('Error en el registro' );
             }
             console.log('Datos enviados:', formData);
         }
         catch (error) {
             console.log(error);
         }
+
+        window.history.back();
     };
 
     return (
@@ -133,16 +154,55 @@ const RegistroUsuario = () => {
                         onChange={handleChange}
                     />
 
-                    <label htmlFor="domicilio">Domicilio</label>
+                    <label htmlFor="domicilio">Calle y numero exterior</label>
                     <input
                         type="text"
                         id="domicilio"
                         name="domicilio"
-                        placeholder="Ingresa tu domicilio"
+                        placeholder="Ingresa tu calle y numero exterior"
                         value={formData.domicilio}
                         onChange={handleChange}
                         required
                     />
+                    
+                    <div>
+                        <label htmlFor="codigoPostal">Código Postal</label>
+                        <input
+                            type="text"
+                            id="codigoPostal"
+                            name="codigoPostal"
+                            placeholder="Código Postal"
+                            value={formData.codigoPostal}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <div className='form-row'>
+
+                        {formData.codigoPostal.length > 4 && colonias.length > 0 &&  (
+                            <div className="form-group">
+                                <label htmlFor="colonia">Colonia</label>
+                                <select
+                                    id="colonia"
+                                    name="domicilioId"
+                                    value={formData.domicilioId}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <option value="">Seleccione una colonia</option>
+                                    {colonias.map((colonia) => (
+                                        <option name="domicilioId" key={colonia.id} value={colonia.id}>
+                                            {colonia.d_asenta}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+
+                        </div>
+                    </div>
+
+
                     <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
                     <input
                         type="date"
@@ -182,7 +242,7 @@ const RegistroUsuario = () => {
                         required
                     />
 
-                    <button type="submit" className="login-button">
+                    <button type="submit" className="login-button" >
                         Registrarse
                     </button>
                 </form>

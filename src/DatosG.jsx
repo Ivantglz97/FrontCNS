@@ -7,6 +7,7 @@ const EscanearDatos = ({ userData }) => {
   console.log('userData desde datos generales: ', userData)
 
   const id = userData.id; // El id que deseas usar para generar el QR
+  console.log('id desde DatosG: ', id);
 
   return (
     <div className="card">
