@@ -88,8 +88,8 @@ button.eliminar {
 }
 
 button:hover {
-  background-color: #f0f0f0;
-  color: #f0f0f0;
+  background-color: #5f5e5e;
+  color: #ffffff;
 }
 
 button:active {

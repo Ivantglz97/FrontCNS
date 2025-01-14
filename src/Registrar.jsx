@@ -20,6 +20,7 @@ const RegistroUsuario = () => {
         lugarNacimiento: ''
     });
 
+    const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar el modal
     const [colonias, setColonias] = useState([]);
 
     const handleChange = async (e) => {
@@ -247,6 +248,20 @@ const RegistroUsuario = () => {
                     </button>
                 </form>
             </div>
+                        {/* Modal de confirmación */}
+                        {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <h3>Confirmar Datos Ingresados</h3>
+                        <p>¿Son los datos correctos?</p>
+                        <div className="modal-buttons">
+                            <button className="confirm-button" onClick={confirmSave}>Confirmar</button>
+                            <button className="cancel-button" onClick={cancelSave}>Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        
         </div>
     );
 };
