@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react';
-import './EscanearDatosG.css'
-
+import React, { useState, useRef, useEffect } from 'react';
+import './EscanearDatosG.css';
 import { BrowserMultiFormatReader } from '@zxing/library'; // Importar la librería de QR
 
 // Datos estáticos para usuarios con ID 1 y 2
@@ -35,7 +34,7 @@ const usuarios = [
   },
 ];
 
-const DatosG = () => {
+const EscanearDatosG = () => {
   const [qrData, setQrData] = useState(null); // Datos escaneados del QR
   const [userData, setUserData] = useState(null); // Datos del usuario según ID leído
   const [isCameraActive, setIsCameraActive] = useState(false); // Estado para controlar si la cámara está activa
@@ -47,11 +46,7 @@ const DatosG = () => {
       const id = data.getText(); // Extraer el texto (ID) del código QR
       setQrData(id); // Guardar el ID escaneado
       const usuario = usuarios.find((user) => user.id.toString() === id); // Buscar el usuario con ese ID
-      if (usuario) {
-        setUserData(usuario); // Cargar los datos del usuario correspondiente
-      } else {
-        setUserData(null); // Si no se encuentra el ID, limpiar los datos
-      }
+      setUserData(usuario || null); // Actualizar datos del usuario o limpiar si no existe
     }
   };
 
@@ -59,128 +54,104 @@ const DatosG = () => {
     console.error(err); // Manejar errores si ocurren
   };
 
-  // Función para iniciar la cámara y leer el código QR
   const startScanner = () => {
     codeReader.current = new BrowserMultiFormatReader(); // Crear lector de códigos
     codeReader.current
       .decodeFromVideoDevice(null, videoRef.current, (result, error) => {
-        if (result) {
-          handleScan(result);
-        }
-        if (error) {
-          handleError(error);
-        }
+        if (result) handleScan(result);
+        if (error) handleError(error);
       })
-      .catch((err) => {
-        console.error('Error starting scanner:', err);
-      });
+      .catch((err) => console.error('Error starting scanner:', err));
 
-    setIsCameraActive(true); // Marcar la cámara como activa
+    setIsCameraActive(true); // Activar la cámara
   };
 
-  // Función para detener la cámara
   const stopScanner = () => {
-    if (codeReader.current) {
-      codeReader.current.reset(); // Detener el lector de QR
-    }
-    setIsCameraActive(false); // Marcar la cámara como inactiva
-    setQrData(null); // Limpiar los datos escaneados
-    setUserData(null); // Limpiar los datos del usuario
+    if (codeReader.current) codeReader.current.reset(); // Detener el lector de QR
+    setIsCameraActive(false); // Desactivar la cámara
   };
 
-  // Iniciar el lector al cargar el componente
-  React.useEffect(() => {
-    if (isCameraActive) {
-      startScanner();
-    } else {
-      stopScanner();
-    }
-    return () => {
-      stopScanner(); // Limpiar cuando el componente se desmonta
-    };
+  const clearData = () => {
+    setQrData(null); // Limpiar datos escaneados
+    setUserData(null); // Limpiar datos del usuario
+  };
+
+  useEffect(() => {
+    if (isCameraActive) startScanner();
+    else stopScanner();
+    return () => stopScanner(); // Limpiar cuando el componente se desmonta
   }, [isCameraActive]);
 
   return (
-        <div className="card">
-              <div className="card-body">
-                <div className="left-column">
-                <h3>Identificación</h3>
-                  <div className="form-group">
-                    <label htmlFor="curp">CURP</label>
-                    <input type="text" id="curp" name="curp" value={userData ? userData.curp : ''} readOnly />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="nombre">Nombre y Apellidos</label>
-                    <input type="text" id="nombre" name="nombre" value={userData ? userData.nombre : ''} readOnly />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="afiliacion">No. de Afiliación</label>
-                    <input type="text" id="afiliacion" name="afiliacion" value={userData ? userData.afiliacion : ''} readOnly />
-                  </div>
+    <div className="card">
+      <div className="card-body">
+        <div className="left-column">
+          <h3>Identificación</h3>
+          {[{ label: 'CURP', id: 'curp', value: userData?.curp },
+            { label: 'Nombre y Apellidos', id: 'nombre', value: userData?.nombre },
+          ].map(({ label, id, value }) => (
+            <div className="form-group" key={id}>
+              <label htmlFor={id}>{label}</label>
+              <input type="text" id={id} value={value || ''} readOnly />
+            </div>
+          ))}
 
-                  <h3>Domicilio</h3>
-                  <div className="form-group">
-                    <label htmlFor="calleNumero">Calle y Número</label>
-                    <input type="text" id="calleNumero" name="calleNumero" value={userData ? userData.domicilio : ''} readOnly />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="colonia">Colonia/Localidad</label>
-                    <input type="text" id="colonia" name="colonia" value={userData ? userData.colonia : ''} readOnly />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="municipio">Municipio o Alcaldía</label>
-                    <input type="text" id="municipio" name="municipio" value={userData ? userData.municipio : ''} readOnly />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="codigoPostal">Código Postal</label>
-                    <input type="text" id="codigoPostal" name="codigoPostal" value={userData ? userData.codigoPostal : ''} readOnly />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="entidadFederativa">Entidad Federativa</label>
-                    <input type="text" id="entidadFederativa" name="entidadFederativa" value={userData ? userData.entidadFederativa : ''} readOnly />
-                  </div>
+          <h3>Domicilio</h3>
+          {[{ label: 'Calle y Número', id: 'calleNumero', value: userData?.domicilio },
+            { label: 'Colonia/Localidad', id: 'colonia', value: userData?.colonia },
+            { label: 'Municipio o Alcaldía', id: 'municipio', value: userData?.municipio },
+            { label: 'Código Postal', id: 'codigoPostal', value: userData?.codigoPostal },
+            { label: 'Entidad Federativa', id: 'entidadFederativa', value: userData?.entidadFederativa },
+          ].map(({ label, id, value }) => (
+            <div className="form-group" key={id}>
+              <label htmlFor={id}>{label}</label>
+              <input type="text" id={id} value={value || ''} readOnly />
+            </div>
+          ))}
+        </div>
 
-                </div>
+        <div className="right-column">
+          <h3>Lugar y Fecha de Nacimiento</h3>
+          {[{ label: 'Lugar de Nacimiento', id: 'lugarNacimiento', value: userData?.lugarNacimiento },
+            { label: 'Fecha de Nacimiento', id: 'fechaNacimiento', value: userData?.fechaNacimiento },
+          ].map(({ label, id, value }) => (
+            <div className="form-group" key={id}>
+              <label htmlFor={id}>{label}</label>
+              <input
+                type={id === 'fechaNacimiento' ? 'date' : 'text'}
+                id={id}
+                value={value || ''}
+                readOnly
+              />
+            </div>
+          ))}
 
-                <div className="right-column">
-                  <h3>Lugar y Fecha de Nacimiento</h3>
-                  <div className="form-group">
-                    <label htmlFor="lugarNacimiento">Municipio o Alcaldía</label>
-                    <input type="text" id="lugarNacimiento" name="lugarNacimiento" value={userData ? userData.lugarNacimiento : ''} readOnly />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="entidadFederativaNacimiento">Entidad Federativa</label>
-                    <input type="text" id="entidadFederativaNacimiento" name="entidadFederativaNacimiento" value={userData ? userData.entidadFederativa : ''} readOnly />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
-                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" value={userData ? userData.fechaNacimiento : ''} readOnly />
-                  </div>
-
-
-                  <div className="qr-card">
-                  <h2>Escanear Código QR</h2>
-                  {!isCameraActive ? (
-                    <button className="start-camera-button" onClick={startScanner}>Iniciar Cámara</button>
-                  ) : (
-                    <div>
-                      <div className="qr-container">
-                        <video ref={videoRef} style={{ width: '100%' }} />
-                      </div>
-                      <button className="stop-camera-button" onClick={stopScanner}>Detener Cámara</button>
-                    </div>
-                  )}
-                  
-                </div>
-
-                </div>
-
+          <div className="qr-card">
+            <h2>Escanear Código QR</h2>
+            {!isCameraActive ? (
+              <div>
+                <button className="start-camera-button" onClick={startScanner}>
+                  Iniciar Cámara
+                </button>
+                <button className="clear-data-button" onClick={clearData}>
+                  Limpiar Datos
+                </button>
               </div>
-            
-
-
+            ) : (
+              <div>
+                <div className="qr-container">
+                  <video ref={videoRef} style={{ width: '100%' }} />
+                </div>
+                <button className="stop-camera-button" onClick={stopScanner}>
+                  Detener Cámara
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default DatosG;
+export default EscanearDatosG;

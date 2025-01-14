@@ -35,7 +35,6 @@ const Sidebar = ({ userId }) => {
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
           { to: "/usuario/cartilla", icon: <MenuBookIcon />, label: "Cartilla" },
-          { to: "/usuario/medicamentos", icon: <MedicalServicesIcon />, label: "Medicamentos" },
           { to: "/usuario/vacunacion", icon: <VaccinesIcon />, label: "Historial de Vacunación" },
           { to: "/usuario/escanear", icon: <QrCodeScannerIcon />, label: "Escanear Cartilla" }
         ];
@@ -43,7 +42,6 @@ const Sidebar = ({ userId }) => {
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
           { to: "/usuario/cartilla", icon: <MenuBookIcon />, label: "Cartilla" },
-          { to: "/usuario/medicamentos", icon: <MedicalServicesIcon />, label: "Medicamentos" },
           { to: "/usuario/vacunacion", icon: <VaccinesIcon />, label: "Historial de Vacunación" },
           { to: "/usuario/citas", icon: <EventIcon />, label: "Próximas Citas" }
         ];

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './Perfil.css';
 import perfil from './assets/avatar.avif';
 
-// Simulación de una base de datos 
 const usuarios = [
   {
     id: 1,
@@ -14,6 +13,7 @@ const usuarios = [
     tipoSangre: 'O-',
     correo: 'ivanejemplo@gmail.com',
     avatar: perfil,
+    contrasena: '123456',
   },
   {
     id: 2,
@@ -25,25 +25,58 @@ const usuarios = [
     tipoSangre: 'A+',
     correo: 'anaejemplo@gmail.com',
     avatar: '/avatar2.png',
+    contrasena: 'password',
   },
-  // Puedes agregar más usuarios aquí
 ];
 
 const Perfil = ({ userId }) => {
-  // Estado para los datos del perfil
   const [userData, setUserData] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedCorreo, setEditedCorreo] = useState('');
+  const [editedContrasena, setEditedContrasena] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
-  // Cargar datos al montar el componente
   useEffect(() => {
-    // Simular la carga de datos a partir del ID
     const usuario = usuarios.find((usuario) => usuario.id === 1);
     if (usuario) {
       setUserData(usuario);
+      setEditedCorreo(usuario.correo);
+      setEditedContrasena(usuario.contrasena);
     }
-  }, [userId]); // Dependencia en userId
+  }, [userId]);
+
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleCorreoChange = (event) => {
+    setEditedCorreo(event.target.value);
+  };
+
+  const handleContrasenaChange = (event) => {
+    setEditedContrasena(event.target.value);
+  };
+
+  const handleSave = () => {
+    setShowModal(true);
+  };
+
+  const confirmSave = () => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      correo: editedCorreo,
+      contrasena: editedContrasena,
+    }));
+    setIsEditing(false);
+    setShowModal(false);
+  };
+
+  const cancelSave = () => {
+    setShowModal(false);
+  };
 
   if (!userData) {
-    return <div>Cargando perfil...</div>; // Mostrar mientras se carga el perfil
+    return <div>Cargando perfil...</div>;
   }
 
   return (
@@ -51,14 +84,16 @@ const Perfil = ({ userId }) => {
       <div className="perfil-card">
         <div className="perfil-header">
           <h2>Mi Perfil</h2>
-          <img
-            src={userData.avatar}
-            alt="Avatar"
-            className="perfil-avatar"
-          />
+          <img src={userData.avatar} alt="Avatar" className="perfil-avatar" />
           <div className="perfil-details">
             <h3>{`${userData.nombre} ${userData.apellidoPaterno} ${userData.apellidoMaterno}`}</h3>
             <p>{userData.correo}</p>
+          </div>
+          <div className="perfil-actions" style={{ marginTop: '20px' }}>
+            <button onClick={handleEditToggle}>
+              {isEditing ? 'Cancelar' : 'Editar'}
+            </button>
+            {isEditing && <button onClick={handleSave}>Guardar</button>}
           </div>
         </div>
         <form className="perfil-form">
@@ -100,12 +135,35 @@ const Perfil = ({ userId }) => {
             <label>Correo</label>
             <input
               type="email"
-              value={userData.correo}
-              readOnly
+              value={isEditing ? editedCorreo : userData.correo}
+              onChange={handleCorreoChange}
+              readOnly={!isEditing}
+            />
+          </div>
+          <div className="form-row">
+            <label>Contraseña</label>
+            <input
+              type="password"
+              value={isEditing ? editedContrasena : userData.contrasena}
+              onChange={handleContrasenaChange}
+              readOnly={!isEditing}
             />
           </div>
         </form>
       </div>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Confirmar Cambios</h3>
+            <p>¿Estás seguro de que deseas guardar los cambios?</p>
+            <div className="modal-buttons">
+              <button className="confirm-button" onClick={confirmSave}>Confirmar</button>
+              <button className="cancel-button" onClick={cancelSave}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

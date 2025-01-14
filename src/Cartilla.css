@@ -52,6 +52,14 @@
     background-color: #7030ee;
   }
   
+  .tab.escanear.active {
+    background-color: #039628;
+  }
+  
+  .tab.cartilla.active {
+    background-color: #7030ee;
+  }
+
   .tab.vacunacion.active {
     background-color: #68c616;
   }

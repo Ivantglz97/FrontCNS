@@ -63,3 +63,81 @@
 .table-container .MuiCheckbox-root.Mui-checked {
   color: #fa0808; /* Color de checkbox seleccionado */
 }
+
+/* Estilos para el modal de confirmación */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-buttons {
+  margin-top: 20px;
+}
+
+.confirm-button, .cancel-button {
+  padding: 8px 16px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.confirm-button {
+  background-color: #4caf50; /* Color verde para confirmar */
+  color: white;
+}
+
+.cancel-button {
+  background-color: #f44336; /* Color rojo para cancelar */
+  color: white;
+}
+
+.modal h3 {
+  font-size: 20px;
+  color: #333333;
+}
+
+.modal p {
+  color: #555555;
+}
+
+/* Estilos para el formulario de edición */
+.edit-form {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.edit-form .MuiTextField-root {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.edit-form button {
+  margin-top: 15px;
+  width: auto;
+  height: auto;
+  padding: 10px 20px;
+  background-color: #4caf50; /* Rojo oscuro para el botón de guardar */
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+

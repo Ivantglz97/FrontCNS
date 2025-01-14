@@ -10,9 +10,10 @@ import Perfil from './Perfil';
 import Vacunacion from './Vacunacion';
 import { Navigate } from 'react-router-dom';  
 import GestionUsuarios from './GestionUsuarios';
-import EscanearDatosG from './EscanearDatosG';
+import EscanearCartilla from './EscanearCartilla';
 import ReestablecerContraseña from './ReestablecerContraseña';
 import Registrar from './Registrar'
+import ContraseñaAct from './ContraseñaAct'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<Login />} />
         <Route path="/olvidaste-contrasena" element={<ReestablecerContraseña />} />
         <Route path="/registrar" element={<Registrar />} />
+        <Route path="/contrasena-actualizada" element={<ContraseñaAct />} />
 
         {/* Rutas protegidas bajo Layout */}
         <Route path="/usuario" element={<Layout />}>
@@ -34,7 +36,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="vacunacion" element={<Vacunacion />} />
           <Route path="citas" element={<Citas />} />
           <Route path="gestion" element={<GestionUsuarios />} />
-          <Route path="escanear" element={<EscanearDatosG />} />
+          <Route path="escanear" element={<EscanearCartilla />} />
         </Route>
       </Routes>
     </Router>
