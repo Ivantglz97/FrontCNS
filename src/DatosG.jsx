@@ -32,10 +32,16 @@ const EscanearDatos = ({ userData }) => {
   const id = 1; // El id que deseas usar para generar el QR, en este caso es estático
   const [tipo, setTipo] = useState("usuario"); // Cambia a "admin" para mostrar los botones
 
+  console.log('userData desde datos generales: ', userData)
+
+  const id = userData.id; // El id que deseas usar para generar el QR, en este caso es estático
+
+master
   return (
     <div className="card">
       <div className="card-body">
         <div className="left-column">
+          
           <h3>Identificación</h3>
           <div className="form-group">
             <label htmlFor="curp">CURP</label>
