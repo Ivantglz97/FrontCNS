@@ -4,41 +4,20 @@ import { BrowserMultiFormatReader } from '@zxing/library'; // Importar la librer
 
 import clienteAxios from './config/axios';
 
-// Datos estáticos para usuarios con ID 1 y 2
-const usuarios = [
-  {
-    id: 1,
-    nombre: 'Ivan Trejo Gonzalez',
-    apellido: 'Trejo Gonzalez',
-    curp: 'TREJIVAN123',
-    afiliacion: 'A1234567',
-    domicilio: 'Calle Falsa 123',
-    colonia: 'Colonia Ficticia',
-    municipio: 'Alcaldía Central',
-    codigoPostal: '01000',
-    entidadFederativa: 'CDMX',
-    lugarNacimiento: 'CDMX',
-    fechaNacimiento: '1990-01-01',
-  },
-  {
-    id: 2,
-    nombre: 'Ana Lopez Martinez',
-    apellido: 'Lopez Martínez',
-    curp: 'LOPEZANA123',
-    afiliacion: 'B1234567',
-    domicilio: 'Avenida Siempre Viva 456',
-    colonia: 'Barrio Alto',
-    municipio: 'Alcaldía Norte',
-    codigoPostal: '02000',
-    entidadFederativa: 'Edo. Mex.',
-    lugarNacimiento: 'Edo. Mex.',
-    fechaNacimiento: '1995-02-15',
-  },
-];
 
 const EscanearDatosG = () => {
+  const paciente = JSON.parse(localStorage.getItem('pacienteData')) || 
+  {
+    Asentamiento: {
+      d_asenta: '',
+      D_mnpio: '',
+      d_codigo: '',
+      d_estado: '',
+    }
+  };
+
   const [qrData, setQrData] = useState(null); // Datos escaneados del QR
-  const [userData, setUserData] = useState(null); // Datos del usuario según ID leído
+  const [pacienteData, setpacienteData] = useState(paciente || {}); // Datos del usuario según ID leído
   const [isCameraActive, setIsCameraActive] = useState(false); // Estado para controlar si la cámara está activa
   const videoRef = useRef(null); // Referencia al video de la cámara
   const codeReader = useRef(null); // Referencia para el lector de códigos QR
@@ -48,24 +27,24 @@ const EscanearDatosG = () => {
       const id = data.getText(); // Extraer el texto (ID) del código QR
       setQrData(id); // Guardar el ID escaneado
 
-      let usuario = null;
+      let pacient = null;
 
       try {
         const respuesta = await clienteAxios.get(`/personal/ver-paciente/${id}`);
-
-        usuario = respuesta.data;
-
+        pacient = respuesta.data;
 
       } catch (error) {
         console.error('Error al cargar datos:', error);
       }
 
-      // const usuario = usuarios.find((user) => user.id.toString() === id); // Buscar el usuario con ese ID
-      if (usuario) {
-        console.log('Usuario encontrado desde EscanearDatosG: ', usuario);
-        setUserData(usuario); // Cargar los datos del usuario correspondiente
+      if (pacient) {
+        console.log('paciente encontrado desde EscanearDatosG: ', pacient);
+        setpacienteData(pacient); // Cargar los datos del usuario correspondiente
+
+        localStorage.setItem('pacienteData', JSON.stringify(pacient));
+
       } else {
-        setUserData(null); // Si no se encuentra el ID, limpiar los datos
+        setpacienteData(null); // Si no se encuentra el ID, limpiar los datos
       }
     }
   };
@@ -93,7 +72,7 @@ const EscanearDatosG = () => {
 
   const clearData = () => {
     setQrData(null); // Limpiar datos escaneados
-    setUserData(null); // Limpiar datos del usuario
+    setpacienteData(null); // Limpiar datos del usuario
   };
 
   useEffect(() => {
@@ -107,22 +86,30 @@ const EscanearDatosG = () => {
       <div className="card-body">
         <div className="left-column">
           <h3>Identificación</h3>
-          {[{ label: 'CURP', id: 'curp', value: userData?.curp },
-            // { label: 'Nombre y Apellidos', id: 'nombre', value: userData?.nombre && userData?.apellido && `${userData.nombre} ${userData.apellidoPaterno} ${userData.apellidoMaterno}` },
-            { label: 'Nombre y Apellidos', id: 'nombre', value: `${userData.nombre} ${userData.apellidoPaterno} ${userData.apellidoMaterno}` },
-          ].map(({ label, id, value }) => (
+          {[{ label: pacienteData?.tipo !== 'paciente'? 'Busqueda por CURP' : 'CURP', 
+            id: 'curp', 
+            value: pacienteData?.curp, 
+            readOnly: true 
+          },
+          
+          { label: 'Nombre y Apellidos', 
+            id: 'nombre', 
+            value: pacienteData?.nombre && pacienteData?.apellidoPaterno && `${pacienteData.nombre} ${pacienteData.apellidoPaterno} ${pacienteData.apellidoMaterno}`,
+            readOnly: true
+          },
+          ].map(({ label, id, value, readOnly }) => (
             <div className="form-group" key={id}>
               <label htmlFor={id}>{label}</label>
-              <input type="text" id={id} value={value || ''} readOnly />
+              <input type="text" id={id} value={value || ''} readOnly={readOnly} />
             </div>
           ))}
 
           <h3>Domicilio</h3>
-          {[{ label: 'Calle y Número', id: 'calleNumero', value: userData?.domicilio },
-            { label: 'Colonia/Localidad', id: 'colonia', value: userData?.colonia },
-            { label: 'Municipio o Alcaldía', id: 'municipio', value: userData?.municipio },
-            { label: 'Código Postal', id: 'codigoPostal', value: userData?.codigoPostal },
-            { label: 'Entidad Federativa', id: 'entidadFederativa', value: userData?.entidadFederativa },
+          {[{ label: 'Calle y Número', id: 'calleNumero', value: pacienteData?.domicilio },
+            { label: 'Colonia/Localidad', id: 'colonia', value: pacienteData?.Asentamiento.d_asenta },
+            { label: 'Municipio o Alcaldía', id: 'municipio', value: pacienteData?.Asentamiento.D_mnpio },
+            { label: 'Código Postal', id: 'codigoPostal', value: pacienteData?.Asentamiento.d_codigo },
+            { label: 'Entidad Federativa', id: 'entidadFederativa', value: pacienteData?.Asentamiento.d_estado },
           ].map(({ label, id, value }) => (
             <div className="form-group" key={id}>
               <label htmlFor={id}>{label}</label>
@@ -133,8 +120,8 @@ const EscanearDatosG = () => {
 
         <div className="right-column">
           <h3>Lugar y Fecha de Nacimiento</h3>
-          {[{ label: 'Lugar de Nacimiento', id: 'lugarNacimiento', value: userData?.lugarNacimiento },
-            { label: 'Fecha de Nacimiento', id: 'fechaNacimiento', value: userData?.fechaNacimiento },
+          {[{ label: 'Lugar de Nacimiento', id: 'lugarNacimiento', value: pacienteData?.lugarNacimiento },
+            { label: 'Fecha de Nacimiento', id: 'fechaNacimiento', value: pacienteData?.fechaNacimiento },
           ].map(({ label, id, value }) => (
             <div className="form-group" key={id}>
               <label htmlFor={id}>{label}</label>

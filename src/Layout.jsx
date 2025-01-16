@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 
 const Layout = () => {
-  const user = JSON.parse(localStorage.getItem('userData'));
+  const user = JSON.parse(localStorage.getItem('userData') || localStorage.getItem('pacienteData')) || [{}];
   const userType = user.tipo;
 
   return (

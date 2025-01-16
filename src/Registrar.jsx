@@ -48,11 +48,12 @@ const RegistroUsuario = () => {
         
         try {
             const respuesta = await clienteAxios.post('/personal/registrar-paciente', formData);
-            console.log('Respuesta: ', respuesta);
+            console.log('Forma Data: ', formData);
             
             if (respuesta.data.mensaje === 'Se agrego un nuevo paciente') {
                 console.log('Registro exitoso: ', respuesta.data.paciente);
                 alert('Registro exitoso');
+                window.history.back();
             } else {
                 console.log('Error en el registro: ', respuesta.data.errors);
                 alert('Error en el registro' );
@@ -63,7 +64,6 @@ const RegistroUsuario = () => {
             console.log(error);
         }
 
-        window.history.back();
     };
 
     return (
@@ -145,15 +145,25 @@ const RegistroUsuario = () => {
                         required
                     />
 
-                    <label htmlFor="tipoSangre">Tipo de Sangre</label>
-                    <input
-                        type="text"
-                        id="tipoSangre"
-                        name="tipoSangre"
-                        placeholder="Ingresa tu tipo de sangre"
-                        value={formData.tipoSangre}
-                        onChange={handleChange}
-                    />
+                    <div className="form-row"> 
+                        <div className='form-group'>
+                            <label htmlFor='tipoSangre'>Tipo de Sangre</label>
+                            <select 
+                                name="tipoSangre" 
+                                id="tipoSangre" 
+                                value={formData.tipoSangre}
+                                onChange={handleChange} required>
+                                <option>Seleccione una opción </option>
+                                <option>O-</option>
+                                <option>O+</option>
+                                <option>A-</option>
+                                <option>A+</option>
+                                <option>AB-</option>
+                                <option>AB+</option>
+                            </select>
+                        </div>
+
+                    </div>
 
                     <label htmlFor="domicilio">Calle y numero exterior</label>
                     <input
@@ -170,6 +180,8 @@ const RegistroUsuario = () => {
                         <label htmlFor="codigoPostal">Código Postal</label>
                         <input
                             type="text"
+                            maxLength={5}
+                            minLength={5}
                             id="codigoPostal"
                             name="codigoPostal"
                             placeholder="Código Postal"

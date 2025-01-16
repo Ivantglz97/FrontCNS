@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './DatosG.css';
 import QRCode from 'react-qr-code'; // Importamos la librería
 
-const EscanearDatos = ({ userData }) => {
+const EscanearDatos = ({ userData, datosPaciente }) => {
   console.log('userData desde DatosG: ', userData);
   
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [editedData, setEditedData] = useState(userData);
+  const [editedData, setEditedData] = useState(datosPaciente);
 
   const handleEdit = () => setIsEditing(true);
 
@@ -26,15 +26,17 @@ const EscanearDatos = ({ userData }) => {
   };
 
   const cancelSave = () => {
-    setEditedData(userData);
+    setEditedData(datosPaciente);
     setIsEditing(false);
     setShowModal(false);
   };
 
 
-  const [tipo, setTipo] = useState("usuario"); // Cambia a "admin" para mostrar los botones
+  const [tipo, setTipo] = useState(userData.tipo || 'paciente'); // Cambia a "admin" para mostrar los botones
+  // const [tipo, setTipo] = useState(datosPaciente.tipo || 'admin'); // Cambia a "admin" para mostrar los botones
+  // const [tipo, setTipo] = useState(datosPaciente?.tipo || userData?.tipo ); // Cambia a "admin" para mostrar los botones
 
-  const id = userData.id; // El id que deseas usar para generar el QR
+  const id = datosPaciente.id; // El id que deseas usar para generar el QR
   console.log('id desde DatosG: ', id);
 
   return (
@@ -49,6 +51,7 @@ const EscanearDatos = ({ userData }) => {
               type="text"
               id="curp"
               name="curp"
+              // value={editedData ? editedData.curp : ''}
               value={editedData ? editedData.curp : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
@@ -60,7 +63,7 @@ const EscanearDatos = ({ userData }) => {
               type="text"
               id="nombre"
               name="nombre"
-              value={editedData ? editedData.nombre : ''}
+              value={editedData ? `${editedData.nombre} ${editedData.apellidoPaterno} ${editedData.apellidoMaterno}`: ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />
@@ -83,7 +86,7 @@ const EscanearDatos = ({ userData }) => {
               type="text"
               id="colonia"
               name="colonia"
-              value={editedData ? editedData.colonia : ''}
+              value={editedData ? editedData.Asentamiento.d_asenta : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />
@@ -94,7 +97,7 @@ const EscanearDatos = ({ userData }) => {
               type="text"
               id="municipio"
               name="municipio"
-              value={editedData ? editedData.municipio : ''}
+              value={editedData ? editedData.Asentamiento.D_mnpio : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />
@@ -105,7 +108,7 @@ const EscanearDatos = ({ userData }) => {
               type="text"
               id="codigoPostal"
               name="codigoPostal"
-              value={editedData ? editedData.codigoPostal : ''}
+              value={editedData ? editedData.Asentamiento.d_codigo : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />
@@ -116,7 +119,7 @@ const EscanearDatos = ({ userData }) => {
               type="text"
               id="entidadFederativa"
               name="entidadFederativa"
-              value={editedData ? editedData.entidadFederativa : ''}
+              value={editedData ? editedData.Asentamiento.d_estado : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />
@@ -156,7 +159,7 @@ const EscanearDatos = ({ userData }) => {
         </div>
       </div>
 
-      {tipo !== "usuario" && (
+      {tipo !== "paciente" && (
         <button className="edit-button" onClick={isEditing ? saveChanges : handleEdit}>
           {isEditing ? 'Guardar' : 'Editar'}
         </button>
@@ -178,12 +181,12 @@ const EscanearDatos = ({ userData }) => {
   );
 };
 
-const App = ({userData}) => {
+const App = ({userData, datosPaciente}) => {
 
   return (
     <div>
       <h1>Datos del Usuario</h1>
-      <EscanearDatos userData={userData} />
+      <EscanearDatos userData={userData} datosPaciente={datosPaciente}/>
     </div>
   );
 };

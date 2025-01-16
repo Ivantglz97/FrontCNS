@@ -14,18 +14,23 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 
-const Vacunacion = () => {
+const Vacunacion = ({userData, datosPaciente}) => {
   const cartilla = JSON.parse(localStorage.getItem('cartilla'));
-  console.log('vacunacion desde vacunacion: ', cartilla.vacunas);
-  const rows = cartilla.vacunas;
+  // console.log('vacunacion desde vacunacion: ', cartilla?.vacunas);
+  const rows = cartilla?.vacunas || [{
+    cartillaId: '',
+    dosis: '',
+    fecha: '',
+    id: '',
+    lote: '',
+    vacuna: '', 
+  }];
 
-  const [tipo, setTipo] = useState("usuario"); // Cambia a "admin" para mostrar los botones
-  // const [rows, setRows] = useState([
-  //   { id: 1, vacuna: "Cancino", dosis: "Anual", fecha: "12/11/24", lote: "A123" },
-  //   { id: 2, vacuna: "Td", dosis: "Segunda", fecha: "13/03/22", lote: "B456" },
-  //   { id: 3, vacuna: "Influenza", dosis: "Unica", fecha: "23/11/21", lote: "C789" },
-  //   { id: 4, vacuna: "Hepatitis B", dosis: "Primera", fecha: "25/01/21", lote: "D012" },
-  // ]);
+  console.log("userData desde Vacunacion: ", userData)
+
+  // const [tipo, setTipo] = useState(datosPaciente?.tipo || userData?.tipo || 'paciente'); // Cambia a "admin" para mostrar los botones
+  const [tipo, setTipo] = useState(userData?.tipo || datosPaciente?.tipo || 'paciente'); // Cambia a "admin" para mostrar los botones
+  // console.log("tipo desde Vacunacion: ", tipo)
 
   const [editMode, setEditMode] = useState(false);
   const [editedRow, setEditedRow] = useState({});
@@ -102,19 +107,19 @@ const Vacunacion = () => {
               <TableCell>Dosis</TableCell>
               <TableCell>Fecha</TableCell>
               <TableCell>Lote</TableCell>
-              {tipo !== "usuario" && (
+              {tipo !== "paciente" && (
               <TableCell>Acciones</TableCell>
               )}
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.vacuna}</TableCell>
-                <TableCell>{row.dosis}</TableCell>
-                <TableCell>{row.fecha}</TableCell>
-                <TableCell>{row.lote}</TableCell>
-                {tipo !== "usuario" && (
+              <TableRow key={row.id ? row.id : '-'}>
+                <TableCell>{row.vacuna ? row.vacuna : '-'}</TableCell>
+                <TableCell>{row.dosis ? row.dosis : '-'}</TableCell>
+                <TableCell>{row.fecha ? row.fecha : '-'}</TableCell>
+                <TableCell>{row.lote ? row.lote : '-'}</TableCell>
+                {tipo !== "paciente" && (
                 <TableCell>
                   <IconButton onClick={() => handleEdit(row)}>
                     <Edit />
@@ -128,7 +133,7 @@ const Vacunacion = () => {
             ))}
           </TableBody>
         </Table>
-        {tipo !== "usuario" && (
+        {tipo !== "paciente" && (
         <Button variant="contained" onClick={handleAddNewRow}>
           Agregar Nueva Vacuna
         </Button>

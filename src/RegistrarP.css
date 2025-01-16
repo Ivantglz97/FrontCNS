@@ -1,0 +1,89 @@
+.form-container {
+    display: flex;
+    justify-content: left;
+    align-items: top;
+    height: 100vh;
+    padding: 50px;
+    background-color: #f5f5f5; /* Opcional: para resaltar el formulario */
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Distribución en dos columnas iguales */
+    gap: 20px;
+    width: 180%; /* Ajusta el ancho del formulario para que se vea bien */
+    max-width: 1200px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-left, .form-right {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input, select {
+    margin-bottom: 12px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%; /* Asegura que ocupen todo el ancho */
+}
+
+/* Botón centrado */
+button.login-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px; /* Ajuste del tamaño del botón */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 auto; /* Centrado horizontal */
+    display: block; /* Centrar con margin: auto */
+}
+
+button.login-button:hover {
+    background-color: #45a049;
+}
+
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.modal-buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+}

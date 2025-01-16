@@ -23,6 +23,8 @@ const Navbar = () => {
         return 'Gestión de Usuarios';
         case '/usuario/escanear':
         return 'Escanear Cartilla';
+        case '/usuario/altapaciente':
+        return 'Alta de Pacientes';
       default:
         return 'Página Principal'; // Nombre por defecto si no coincide con ninguna ruta
     }

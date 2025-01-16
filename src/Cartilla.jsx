@@ -12,6 +12,9 @@ import Vacunacion from './Vacunacion';
 import clienteAxios from './config/axios';
 
 const Cartilla = ({userId}) => {
+  const usuario = JSON.parse(localStorage.getItem('userData'));
+  const paciente = JSON.parse(localStorage.getItem('pacienteData'));
+
   // Estado para mantener la pestaña activa
   const [activeTab, setActiveTab] = useState('datosGenerales');
 
@@ -21,48 +24,33 @@ const Cartilla = ({userId}) => {
   };
 
   // Estado para los datos del perfil
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(usuario || {});
+
+  const [datosPaciente, setDatosPaciente] = useState(paciente );
 
   // Estado para los datos de la cartilla
-  // const [cartillaData, setCartillaData] = useState(null);
-
+  const [cartillaData, setCartillaData] = useState(null);
 
   // Cargar datos al montar el componente
   useEffect( () => {
-    
-    const getData = () => {
-      const user = JSON.parse(localStorage.getItem('userData'));
+
+    const fetchCartilla = async () => {
       try {
-        setUserData(user);
-        // alerta
-        console.log('Datos de cartilla:', user);
-              
+        const response = await clienteAxios.get(`/usuario/cartilla/${datosPaciente.cartillaId}`);
+        localStorage.setItem('cartilla', JSON.stringify(response.data));
+        setCartillaData(response.data);
+  
       } catch (error) {
         console.log(error);
-        return navigate('/login');
       }
     }
-    getData();
-
-    
+    fetchCartilla();
   }, [userId]); // Dependencia en userId
   
-  const fetchCartilla = async () => {
-    try {
-      const response = await clienteAxios.get(`/usuario/cartilla/${userData.cartillaId}`);
-      localStorage.setItem('cartilla', JSON.stringify(response.data));
-      
-      // setCartillaData(response.data);
-      console.log('Cartilla desde Cartilla.jsx:', response.data);
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  fetchCartilla();
-  
-  if (!userData) {
-    return <div>Cargando cartilla del paciente...</div>; // Mostrar mientras se carga el perfil
+  console.log('cartillaData desde Cartilla: ', cartillaData);
+  console.log('datosPaciente desde Cartilla: ', datosPaciente);
+  if (!datosPaciente || !cartillaData) {
+    return <div>Aun no hay ninguna cartilla para mostrar...</div>; // Mostrar mientras se carga el perfil
   }
 
   return (
@@ -114,13 +102,13 @@ const Cartilla = ({userId}) => {
 
       {/* Mostrar contenido según la pestaña activa */}
       <div className="tab-content">
-        {activeTab === 'datosGenerales' && <DatosG userData={userData} />}
-        {activeTab === 'antecedentes' && <Antecedentes />}
-        {activeTab === 'atencionMedica' && <AtencionM />}
-        {activeTab === 'nutricion' && <Nutricion />}
-        {activeTab === 'estudios' && <Estudios />}
-        {activeTab === 'saludSexualReproductiva' && <SaludSyR />}
-        {activeTab === 'vacunacion' && <Vacunacion />}
+        {activeTab === 'datosGenerales' && <DatosG userData={userData} datosPaciente={datosPaciente}/>}
+        {activeTab === 'antecedentes' && <Antecedentes userData={userData} datosPaciente={datosPaciente}/>}
+        {activeTab === 'atencionMedica' && <AtencionM userData={userData} datosPaciente={datosPaciente}/>}
+        {activeTab === 'nutricion' && <Nutricion userData={userData} datosPaciente={datosPaciente}/>}
+        {activeTab === 'estudios' && <Estudios userData={userData} datosPaciente={datosPaciente}/>}
+        {activeTab === 'saludSexualReproductiva' && <SaludSyR userData={userData} datosPaciente={datosPaciente}/>}
+        {activeTab === 'vacunacion' && <Vacunacion userData={userData} datosPaciente={datosPaciente}/>}
       </div>
     </div>
   );

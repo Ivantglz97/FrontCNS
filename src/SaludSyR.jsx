@@ -14,12 +14,12 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 
-const SaludSyR = () => {
+const SaludSyR = ({userData, datosPaciente}) => {
   const cartilla = JSON.parse(localStorage.getItem('cartilla'));
   console.log('salud desde salud: ', cartilla.saludSexuals);
-  const rows = cartilla.saludSexuals;
+  const rows = cartilla?.saludSexuals || [{}];
 
-  const [tipo, setTipo] = useState("usuario"); // Cambia a "admin" para mostrar los botones
+  const [tipo, setTipo] = useState(userData.tipo || 'paciente'); // Cambia a "admin" para mostrar los botones
   // const [rows, setRows] = useState([
   //   { id: 1, accion: "Otorgamiento de preservativo masculino", fecha: "2023-01-01", tipo: "Otorgamiento método anticonceptivo", observaciones: "Paciente recibió método anticonceptivo" },
   //   { id: 2, accion: "Consulta médica", fecha: "2023-02-05", tipo: "Consulta general", observaciones: "Paciente con síntomas de resfriado" },
@@ -102,19 +102,19 @@ const SaludSyR = () => {
               <TableCell>Fecha</TableCell>
               <TableCell>Tipo</TableCell>
               <TableCell>Observaciones</TableCell>
-              {tipo !== "usuario" && (
+              {tipo !== "paciente" && (
               <TableCell>Acciones</TableCell>
               )}
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.accion}</TableCell>
-                <TableCell>{row.fecha}</TableCell>
-                <TableCell>{row.tipo}</TableCell>
-                <TableCell>{row.observaciones}</TableCell>
-                {tipo !== "usuario" && (
+              <TableRow key={row.id ? row.id : '-'}>
+                <TableCell>{row.accion ? row.accion : '-'}</TableCell>
+                <TableCell>{row.fecha ? row.fecha : '-'}</TableCell>
+                <TableCell>{row.tipo ? row.tipo : '-'}</TableCell>
+                <TableCell>{row.observaciones ? row.observaciones : '-'}</TableCell>
+                {tipo !== "paciente" && (
                 <TableCell>
                   <IconButton onClick={() => handleEdit(row)}>
                     <Edit />
@@ -128,7 +128,7 @@ const SaludSyR = () => {
             ))}
           </TableBody>
         </Table>
-        {tipo !== "usuario" && (
+        {tipo !== "paciente" && (
         <Button variant="contained" onClick={handleAddNewRow}>
           Agregar Nuevo
         </Button>

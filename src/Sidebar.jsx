@@ -42,22 +42,23 @@ const Sidebar = ({ userType }) => {
       case 'enfermero': // Enfermero
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
-          { to: "/usuario/cartilla", icon: <MenuBookIcon />, label: "Cartilla" },
-          { to: "/usuario/vacunacion", icon: <VaccinesIcon />, label: "Historial de Vacunación" },
-          { to: "/usuario/escanear", icon: <QrCodeScannerIcon />, label: "Escanear Cartilla" }
+          // { to: "/usuario/cartilla", icon: <MenuBookIcon />, label: "Cartilla" },
+          // { to: "/usuario/vacunacion", icon: <VaccinesIcon />, label: "Historial de Vacunación" },
+          { to: "/usuario/escanear", icon: <QrCodeScannerIcon />, label: "Escanear Cartilla" },
+          { to: "/usuario/altapaciente", icon: <MedicalServicesIcon/>, label: "Alta de Pacientes" }
         ];
-
-      case 'paciente': // Usuario
+        
+        case 'paciente': // Usuario
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
           { to: "/usuario/cartilla", icon: <MenuBookIcon />, label: "Cartilla" },
           { to: "/usuario/vacunacion", icon: <VaccinesIcon />, label: "Historial de Vacunación" },
           { to: "/usuario/citas", icon: <EventIcon />, label: "Próximas Citas" }
         ];
-      case 'medico': // Medico
+        case 'medico': // Medico
         return [
           { to: "/usuario/perfil", icon: <AccountBoxIcon />, label: "Perfil" },
-          { to: "/usuario/escanear", icon: <QrCodeScannerIcon />, label: "Escanear Cartilla" }
+          { to: "/usuario/escanear", icon: <QrCodeScannerIcon />, label: "Escanear Cartilla" },
         ];
       default:
         return [];

@@ -14,6 +14,7 @@ import EscanearCartilla from './EscanearCartilla';
 import ReestablecerContraseña from './ReestablecerContraseña';
 import Registrar from './Registrar'
 import ContraseñaAct from './ContraseñaAct'
+import AltaPacientes from './AltaPacientes';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -37,6 +38,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="citas" element={<Citas />} />
           <Route path="gestion" element={<GestionUsuarios />} />
           <Route path="escanear" element={<EscanearCartilla />} />
+          <Route path="altapaciente" element={<AltaPacientes />} />
         </Route>
       </Routes>
     </Router>

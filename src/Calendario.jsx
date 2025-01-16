@@ -7,10 +7,12 @@ const Calendario = ({citas}) => {
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startDay, setStartDay] = useState(0);
   const [appointments, setAppointments] = useState(
+    Array.isArray(citas) && citas.length > 0 ?
     citas.map(cita => ({
       ...cita,
       date: cita.horario.split('T')[0]
-    }))
+    })) : 
+    []
   );
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -118,6 +120,10 @@ const Calendario = ({citas}) => {
       setIsModalOpen(false);
     }
   };
+
+  if(appointments.length === 0) {
+    return <div>No hay citas programadas...</div>;
+  }
 
   return (
     <div className="calendar">

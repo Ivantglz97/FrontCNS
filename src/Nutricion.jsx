@@ -14,12 +14,12 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 
-const Nutricion = () => {
+const Nutricion = ({userData, datosPaciente}) => {
   const cartilla = JSON.parse(localStorage.getItem('cartilla'));
-  console.log('nutricion desde nutricion: ', cartilla.nutricions);
-  const rows = cartilla.nutricions;
+  // console.log('nutricion desde nutricion: ', cartilla.nutricions);
+  const rows = cartilla?.nutricions || [{}];
 
-  const [tipo, setTipo] = useState("usuario"); // Cambia a "admin" para mostrar los botones
+  const [tipo, setTipo] = useState(userData.tipo || 'paciente'); // Cambia a "admin" para mostrar los botones
   // const [rows, setRows] = useState([
   //   { id: 1, fecha: "2024-12-01", peso: 68, estatura: 1.75 },
   //   { id: 2, fecha: "2024-12-05", peso: 85, estatura: 1.70 },
@@ -106,19 +106,19 @@ const Nutricion = () => {
               <TableCell>Peso (kg)</TableCell>
               <TableCell>Estatura (m)</TableCell>
               <TableCell>IMC</TableCell>
-              {tipo !== "usuario" && (
+              {tipo !== "paciente" && (
               <TableCell>Acciones</TableCell>
               )}
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.fecha}</TableCell>
-                <TableCell>{row.peso}</TableCell>
-                <TableCell>{row.estatura}</TableCell>
+              <TableRow key={row.id ? row.id : '-'}>
+                <TableCell>{row.fecha ? row.fecha : '-'}</TableCell>
+                <TableCell>{row.peso ? row.peso : '-'}</TableCell>
+                <TableCell>{row.estatura ? row.estatura : '-'}</TableCell>
                 <TableCell>{calcularIMC(row.peso, row.estatura)}</TableCell>
-                {tipo !== "usuario" && (
+                {tipo !== "paciente" && (
                 <TableCell>
                   <IconButton onClick={() => handleEdit(row)}>
                     <Edit />
@@ -132,7 +132,7 @@ const Nutricion = () => {
             ))}
           </TableBody>
         </Table>
-        {tipo !== "usuario" && (
+        {tipo !== "paciente" && (
         <Button variant="contained" onClick={handleAddNewRow}>
           Agregar Nuevo
         </Button>

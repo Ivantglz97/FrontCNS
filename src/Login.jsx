@@ -26,22 +26,25 @@ const Login = () => {
       switch (user.data.tipo) {
         case 'paciente':
           respuesta = await clienteAxios.get(`/usuario/${user.data.id}`, credenciales);
+          localStorage.setItem('pacienteData', JSON.stringify(respuesta.data));
           break;
 
         case 'admin': 
           respuesta = await clienteAxios.get(`/admin/ver-admin/${user.data.id}`, credenciales);
+          localStorage.setItem('userData', JSON.stringify(respuesta.data));
           break;
           
-          case 'superAdmin': 
+        case 'superAdmin': 
           respuesta = await clienteAxios.get(`/admin/ver-admin/${user.data.id}`, credenciales);
+          localStorage.setItem('userData', JSON.stringify(respuesta.data));
           break;
           
         default:
           respuesta = await clienteAxios.get(`/personal/${user.data.id}`, credenciales);
+          localStorage.setItem('userData', JSON.stringify(respuesta.data));
           break;
       }
       
-      localStorage.setItem('userData', JSON.stringify(respuesta.data));
       
     } catch (error) {
       console.log(error);

@@ -14,12 +14,12 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 
-const Estudios = () => {
+const Estudios = ({userData, datosPaciente}) => {
   const cartilla = JSON.parse(localStorage.getItem('cartilla'));
   console.log('estudios desde estudios: ', cartilla.estudios);
-  const rows = cartilla.estudios;
+  const rows = cartilla?.estudios || [{}];
 
-  const [tipo, setTipo] = useState("usuario"); // Cambia a "admin" para mostrar los botones
+  const [tipo, setTipo] = useState(userData.tipo || 'paciente'); // Cambia a "admin" para mostrar los botones
   // const [rows, setRows] = useState([
   //   { id: 1, estudio: "Hemograma", fecha: "2023-01-15", resultado: "Normal" },
   //   { id: 2, estudio: "Radiografía de tórax", fecha: "2023-02-20", resultado: "Anormal" },
@@ -100,18 +100,18 @@ const Estudios = () => {
               <TableCell>Estudio</TableCell>
               <TableCell>Fecha</TableCell>
               <TableCell>Resultado</TableCell>
-              {tipo !== "usuario" && (
+              {tipo !== "paciente" && (
               <TableCell>Acciones</TableCell>
               )}
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.estudio}</TableCell>
-                <TableCell>{row.fecha}</TableCell>
-                <TableCell>{row.resultado}</TableCell>
-                {tipo !== "usuario" && (
+              <TableRow key={row.id ? row.id : '-'}>
+                <TableCell>{row.estudio ? row.estudio : '-'}</TableCell>
+                <TableCell>{row.fecha ? row.fecha : '-'}</TableCell>
+                <TableCell>{row.resultado ? row.resultado : '-'}</TableCell>
+                {tipo !== "paciente" && (
                 <TableCell>
                   <IconButton onClick={() => handleEdit(row)}>
                     <Edit />
@@ -125,7 +125,7 @@ const Estudios = () => {
             ))}
           </TableBody>
         </Table>
-        {tipo !== "usuario" && (
+        {tipo !== "paciente" && (
         <Button variant="contained" onClick={handleAddNewRow}>
           Agregar Nuevo
         </Button>

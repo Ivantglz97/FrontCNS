@@ -14,23 +14,16 @@ import {
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 
-const AtencionM = () => {
+const AtencionM = ({userData, datosPaciente}) => {
   const cartilla = JSON.parse(localStorage.getItem('cartilla'));
-  console.log('citas desde atencion: ', cartilla.cita);
-  const rows = cartilla.cita;
+  const rows = cartilla?.cita || [{}];
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  const [tipo, setTipo] = useState("usuario"); // Cambia a "admin" para mostrar los botones
-  // const [rows, setRows] = useState([
-  //   { id: 1, hora: "09:00 AM", servicio: "Consulta general", rubrica: "CG-123" },
-  //   { id: 2, hora: "10:30 AM", servicio: "Chequeo de salud", rubrica: "CH-456" },
-  //   { id: 3, hora: "02:00 PM", servicio: "Revisión de vacunación", rubrica: "RV-789" },
-  //   { id: 4, hora: "11:15 AM", servicio: "Consulta nutricional", rubrica: "CN-101" },
-  // ]);
+  const [tipo, setTipo] = useState(userData.tipo || 'paciente'); // Cambia a "admin" para mostrar los botones
   
   const [editMode, setEditMode] = useState(false);
   const [editedRow, setEditedRow] = useState({});
@@ -102,10 +95,10 @@ const AtencionM = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Hora</TableCell>
+              <TableCell>Horario</TableCell>
               <TableCell>Servicio</TableCell>
               <TableCell>Clave</TableCell>
-              {tipo !== "usuario" && (
+              {tipo !== "paciente" && (
                 <TableCell>Acciones</TableCell>
               )}
             </TableRow>
@@ -113,10 +106,10 @@ const AtencionM = () => {
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.id ? row.id : '-'}>
-                <TableCell>{row.horario ? row.horario : '-'}</TableCell>
+                <TableCell>{row.horario ? formatDate(row.horario) : '-'}</TableCell>
                 <TableCell>{row.servicio ? row.servicio : '-'}</TableCell>
                 <TableCell>{row.clave ? row.clave : '-'}</TableCell>
-                {tipo !== "usuario" && (
+                {tipo !== "paciente" && (
                   <TableCell>
                     <IconButton onClick={() => handleEdit(row)}>
                       <Edit />
@@ -130,7 +123,7 @@ const AtencionM = () => {
             ))}
           </TableBody>
         </Table>
-        {tipo !== "usuario" && (
+        {tipo !== "paciente" && (
           <Button variant="contained" onClick={handleAddNewRow}>
             Agregar Nuevo
           </Button>

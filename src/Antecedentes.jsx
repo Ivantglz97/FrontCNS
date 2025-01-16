@@ -16,62 +16,19 @@ import {
 // import clienteAxios from "./config/axios";
 import { Edit, Delete } from "@mui/icons-material";
 
-const Antecedentes = () => {
+const Antecedentes = ({userData, datosPaciente}) => {
   const cartilla = JSON.parse(localStorage.getItem('cartilla'));
-  console.log('antecedentes desde antecedentes: ', cartilla.antecedente);
-  const antecedente = cartilla.antecedente;
-  const rows = cartilla.antecedentes;
+  const antecedente = cartilla?.antecedente || {};
 
-  const [tipo, setTipo] = useState("usuario"); // Cambia a "admin" para mostrar los botones
+  const [tipo, setTipo] = useState(userData.tipo || 'paciente'); // Cambia a "admin" para mostrar los botones
 
-  // const [rows, setRows] = useState([
-  //   { 
-  //     id: 1, 
-  //     alergias: "Polen, Polvo, Insulina", 
-  //     discapacidad: "Visual", 
-  //     cancer: "Cáncer de colón", 
-  //     cirugias: "Apendice", 
-  //     diabetes: "Tipo II", 
-  //     transfusiones: "Sanguínea (2024-09-24)", 
-  //     otros: "Hipertensión" 
-  //   },
-  //   { 
-  //     id: 2, 
-  //     alergias: "Pescado, Látex", 
-  //     discapacidad: "Auditiva", 
-  //     cancer: "Melanoma", 
-  //     cirugias: "Rodilla", 
-  //     diabetes: "Tipo I", 
-  //     transfusiones: "Plasma (2023-11-10)", 
-  //     otros: "Asma" 
-  //   },
-  //   { 
-  //     id: 3, 
-  //     alergias: "Cacahuates, Gatos", 
-  //     discapacidad: "Motora", 
-  //     cancer: "Leucemia", 
-  //     cirugias: "Coronaria", 
-  //     diabetes: "Pre-diabetes", 
-  //     transfusiones: "Sanguínea (2024-05-15)", 
-  //     otros: "Epilepsia" 
-  //   },
-  //   { 
-  //     id: 4, 
-  //     alergias: "Huevo, Polvo", 
-  //     discapacidad: "Cognitiva", 
-  //     cancer: "Cáncer de mama", 
-  //     cirugias: "Cadera", 
-  //     diabetes: "Tipo II", 
-  //     transfusiones: "Sanguínea (2022-08-30)", 
-  //     otros: "Obesidad" 
-  //   },
-  // ]);
-  
   const [editMode, setEditMode] = useState(false);
   const [editedRow, setEditedRow] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [isNewRow, setIsNewRow] = useState(false);
   const [rowToDelete, setRowToDelete] = useState(null);
+
+  console.log('Tipo usuario desde Antecedente: ', tipo)
 
   const handleEdit = (row) => {
     setEditMode(true);
@@ -148,21 +105,21 @@ const Antecedentes = () => {
               <TableCell>Diabetes</TableCell>
               <TableCell>Transfusiones</TableCell>
               <TableCell>Otros</TableCell>
-              {tipo !== "usuario" && (
+              {tipo !== "paciente" && (
               <TableCell>Acciones</TableCell>
             )}
             </TableRow>
           </TableHead>
           <TableBody>
-                <TableRow key={antecedente.id}>
-                <TableCell>{(antecedente.alergias ? antecedente.alergias : '-')}</TableCell>
-                <TableCell>{antecedente.discapacidad ? antecedente.discapacidad : '-'}</TableCell>
-                <TableCell>{antecedente.cancer ? antecedente.cancer : '-'}</TableCell>
-                <TableCell>{antecedente.cirugias ? antecedente.cirugias : '-'}</TableCell>
-                <TableCell>{antecedente.diabetes ? antecedente.diabetes : '-'}</TableCell>
-                <TableCell>{antecedente.transfusiones ? antecedente.transfusiones : '-'}</TableCell>
-                <TableCell>{antecedente.otros ? antecedente.otros : '-'}</TableCell>
-                {tipo !== "usuario" && (
+                <TableRow key={antecedente?.id}>
+                <TableCell>{(antecedente?.alergias ? antecedente.alergias : '-')}</TableCell>
+                <TableCell>{antecedente?.discapacidad ? antecedente.discapacidad : '-'}</TableCell>
+                <TableCell>{antecedente?.cancer ? antecedente.cancer : '-'}</TableCell>
+                <TableCell>{antecedente?.cirugias ? antecedente.cirugias : '-'}</TableCell>
+                <TableCell>{antecedente?.diabetes ? antecedente.diabetes : '-'}</TableCell>
+                <TableCell>{antecedente?.transfusiones ? antecedente.transfusiones : '-'}</TableCell>
+                <TableCell>{antecedente?.otros ? antecedente.otros : '-'}</TableCell>
+                {tipo !== "paciente" && (
                 <TableCell>
                   <IconButton onClick={() => handleEdit(row)}>
                     <Edit />
@@ -175,7 +132,7 @@ const Antecedentes = () => {
               </TableRow>
             </TableBody>
         </Table>
-        {tipo !== "usuario" && (
+        {tipo !== "paciente" && (
         <Button variant="contained" onClick={handleAddNewRow}>
             Agregar Nuevo
           </Button>
