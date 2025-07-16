@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+## Cambios a realizar
+### Perfil pacientes:
+ - [] Cambiar colores de boton de 'Guardar' y 'Cancelar' que salen cuando presionas editar
+
+ import React, { useState, useEffect } from 'react';
 import './DatosG.css';
 import QRCode from 'react-qr-code'; // Importamos la librería
 import clienteAxios from './config/axios';
@@ -8,8 +12,7 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
   
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [editedData, setEditedData] = useState(datosPaciente);
-  // const [editedData, setEditedData] = useState({});
+  const [editedData, setEditedData] = useState({datosPaciente, Asentamiento: {d_codigo: '', d_asenta: '', D_mnpio: '', d_estado: ''}});
   const [colonias, setColonias] = useState([]);
 
   const handleEdit = () => setIsEditing(true);
@@ -61,8 +64,8 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
   };
 
   useEffect(() => {
-    if (editedData.Asentamiento.d_codigo?.length === 5) {
-        clienteAxios.get(`/personal/domicilios/${editedData.Asentamiento.d_codigo}`)
+    if (editedData.datosPaciente.Asentamiento.d_codigo?.length === 5) {
+        clienteAxios.get(`/personal/domicilios/${editedData.datosPaciente.Asentamiento.d_codigo}`)
         .then(response => {
             setColonias(response.data);
         })
@@ -70,25 +73,24 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
             console.error('Error fetching colonias:', error);
         });
     }
-}, [editedData.Asentamiento.d_codigo]);
+}, [editedData.datosPaciente.Asentamiento.d_codigo]);
 
   const confirmSave = async () => {
     try {
       const respuesta = await clienteAxios.put(`/personal/actualizar-paciente/${datosPaciente.id}`, {
-        nombre: editedData?.nombre !== datosPaciente.nombre ? editedData.nombre : datosPaciente.nombre,
-        apellidoPaterno: editedData?.apellidoPaterno !== datosPaciente.apellidoPaterno ? editedData.apellidoPaterno : datosPaciente.apellidoPaterno,
-        apellidoMaterno: editedData?.apellidoMaterno !== datosPaciente.apellidoMaterno ? editedData.apellidoMaterno : datosPaciente.apellidoMaterno,
-        curp: editedData?.curp !== datosPaciente.curp ? editedData.curp : datosPaciente.curp,
-        domicilio: editedData?.domicilio !== datosPaciente.domicilio ? editedData.domicilio : datosPaciente.domicilio,
-        fechaNacimiento: editedData?.fechaNacimiento !== datosPaciente.fechaNacimiento ? new Date(editedData.fechaNacimiento) : new Date(datosPaciente.fechaNacimiento),
-        lugarNacimiento: editedData?.lugarNacimiento !== datosPaciente.lugarNacimiento ? editedData.lugarNacimiento : datosPaciente.lugarNacimiento,
-        domicilioId: editedData?.domicilioId !== datosPaciente.domicilioId ? editedData.domicilioId : datosPaciente.domicilioId,
+        nombre: editedData.datosPaciente?.nombre !== datosPaciente.nombre ? editedData.datosPaciente?.nombre : datosPaciente.nombre,
+        apellidoPaterno: editedData.datosPaciente?.apellidoPaterno !== datosPaciente.apellidoPaterno ? editedData.datosPaciente?.apellidoPaterno : datosPaciente.apellidoPaterno,
+        apellidoMaterno: editedData.datosPaciente?.apellidoMaterno !== datosPaciente.apellidoMaterno ? editedData.datosPaciente?.apellidoMaterno : datosPaciente.apellidoMaterno,
+        curp: editedData.datosPaciente?.curp !== datosPaciente.curp ? editedData.datosPaciente?.curp : datosPaciente.curp,
+        domicilio: editedData.datosPaciente?.domicilio !== datosPaciente.domicilio ? editedData.datosPaciente?.domicilio : datosPaciente.domicilio,
+        fechaNacimiento: editedData.datosPaciente?.fechaNacimiento !== datosPaciente.fechaNacimiento ? editedData.datosPaciente?.fechaNacimiento : datosPaciente.fechaNacimiento,
+        lugarNacimiento: editedData.datosPaciente?.lugarNacimiento !== datosPaciente.lugarNacimiento ? editedData.datosPaciente?.lugarNacimiento : datosPaciente.lugarNacimiento,
+        domicilioId: editedData.datosPaciente?.domicilioId !== datosPaciente.domicilioId ? editedData.datosPaciente?.domicilioId : datosPaciente.domicilioId,
       });
 
-      console.log('Paciente actualizado:', respuesta.data);
+      console.log('Paciente actualizado:', respuesta);
 
-      // localStorage.setItem('pacienteData', JSON.stringify(editedData.datosPaciente));
-      localStorage.setItem('pacienteData', JSON.stringify(editedData));
+      localStorage.setItem('pacienteData', JSON.stringify(editedData.datosPaciente));
     }
     catch (error) {
       alert('Hubo un error al guardar los cambios');
@@ -110,6 +112,12 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
 
   const id = datosPaciente.id; // El id que deseas usar para generar el QR
   console.log('editedData desde DatosG: ', editedData);
+  // const codigoPostalLength = editedData.Asentamiento?.d_codigo?.length || 0;
+  const codigoPostalLength = editedData.datosPaciente.Asentamiento.d_codigo?.length;
+  // const codigoPostalLengt = datosPaciente.Asentamiento.d_codigo?.length;
+  console.log('Longitud del código postal:', codigoPostalLength);
+  // console.log('Longitud del código postal:', codigoPostalLengt);
+  
 
   return (
     <div className="card">
@@ -122,8 +130,8 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
             <input
               type="text"
               id="curp"
-              name="curp"
-              value={editedData ? editedData.curp : datosPaciente?.curp}
+              name="datosPaciente.curp"
+              value={editedData ? editedData.datosPaciente?.curp : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />
@@ -135,24 +143,24 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
                 <input
                   type="text"
                   id="nombre"
-                  name="nombre"
-                  value={editedData ? editedData.nombre : datosPaciente.nombre}
+                  name="datosPaciente.nombre"
+                  value={editedData ? editedData.datosPaciente?.nombre : ''}
                   onChange={handleInputChange}
                   placeholder="Nombre"
                 />
                 <input
                   type="text"
                   id="apellidoPaterno"
-                  name="apellidoPaterno"
-                  value={editedData ? editedData.apellidoPaterno : datosPaciente.apellidoPaterno}
+                  name="datosPaciente.apellidoPaterno"
+                  value={editedData ? editedData.datosPaciente?.apellidoPaterno : ''}
                   onChange={handleInputChange}
                   placeholder="Apellido Paterno"
                 />
                 <input
                   type="text"
                   id="apellidoMaterno"
-                  name="apellidoMaterno"
-                  value={editedData ? editedData.apellidoMaterno : datosPaciente.apellidoMaterno}
+                  name="datosPaciente.apellidoMaterno"
+                  value={editedData ? editedData.datosPaciente?.apellidoMaterno : ''}
                   onChange={handleInputChange}
                   placeholder="Apellido Materno"
                 />
@@ -164,10 +172,8 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
                 <input
                 type="text"
                 id="nombre"
-                name="nombre"
-                value={editedData 
-                  ? `${editedData.nombre} ${editedData.apellidoPaterno} ${editedData.apellidoMaterno}` 
-                  : `${datosPaciente.nombre} ${datosPaciente.apellidoPaterno} ${datosPaciente.apellidoMaterno}`}
+                name="datosPaciente.datosPaciente.nombre"
+                value={editedData ? `${editedData.datosPaciente?.nombre} ${editedData.datosPaciente?.apellidoPaterno} ${editedData.datosPaciente?.apellidoMaterno}` : ''}
                 readOnly
                 />
               </div>
@@ -177,12 +183,12 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
           </div>
           <h3>Domicilio</h3>
           <div className="form-group">
-            <label htmlFor="domicilio">Calle y Número</label>
+            <label htmlFor="calleNumero">Calle y Número</label>
             <input
               type="text"
-              id="domcilio"
-              name="domicilio"
-              value={editedData ? editedData.domicilio : datosPaciente.domicilio}
+              id="calleNumero"
+              name="datosPaciente.domicilio"
+              value={editedData ? editedData.datosPaciente?.domicilio : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />
@@ -194,23 +200,25 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
                 type="text"
                 maxLength={5}
                 minLength={5}
-                id="Asentamiento.d_codigo"
-                name="Asentamiento.d_codigo"
-                value={editedData ? editedData.Asentamiento.d_codigo : datosPaciente.Asentamiento.d_codigo}
+                // id="Asentamiento.d_codigo"
+                name="datosPaciente.Asentamiento.d_codigo"
+                // placeholder="Código Postal"
+                value={editedData ? editedData.datosPaciente.Asentamiento?.d_codigo : ''}
                 readOnly={!isEditing}
                 onChange={handleInputChange}
                 required
             />
 
             <div className='form-row'>
-              {editedData?.Asentamiento.d_codigo?.length > 4 && colonias.length > 0 && (
+              {
+              editedData.datosPaciente.Asentamiento.d_codigo?.length > 4 && colonias.length > 0 && (
                 <div className="form-group">
                   <label htmlFor="colonia">Colonia</label>
                   <select
                     id="colonia"
-                    name="domicilioId"
-                    value={editedData ? editedData.domicilioId : datosPaciente.domicilioId}
-                    onChange={handleInputChange}
+                    name="editedData.domicilioId"
+                    value={editedData ? editedData.datosPaciente?.domicilioId : ''}
+                    // onChange={handleInputChange}
                     disabled={!isEditing}
                     required
                   >
@@ -226,25 +234,49 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
             </div>
           </div>
 
+          {/* <div className="form-group">
+            <label htmlFor="colonia">Colonia/Localidad</label>
+            <input
+              type="text"
+              id="colonia"
+              name="datosPaciente.colonia"
+              value={editedData ? editedData.datosPaciente.Asentamiento.d_asenta : ''}
+              readOnly={true}
+              onChange={handleInputChange}
+            />
+          </div> */}
           <div className="form-group">
-            <label htmlFor="Asentamiento.D_mnpio">Municipio o Alcaldía</label>
+            <label htmlFor="municipio">Municipio o Alcaldía</label>
             <input
               type="text"
               id="municipio"
-              name="Asentamiento.D_mnpio"
-              value={editedData ? editedData.Asentamiento.D_mnpio : datosPaciente.Asentamiento.D_mnpio}
+              name="datosPaciente.municipio"
+              value={editedData ? editedData.datosPaciente?.Asentamiento.D_mnpio : ''}
               readOnly={true}
               onChange={handleInputChange}
             />
           </div>
 
+          
+
+          {/* <div className="form-group">
+            <label htmlFor="codigoPostal">Código Postal</label>
+            <input
+              type="text"
+              id="codigoPostal"
+              name="codigoPostal"
+              value={editedData ? editedData.datosPaciente.Asentamiento.d_codigo : ''}
+              readOnly={!isEditing}
+              onChange={handleInputChange}
+            />
+          </div> */}
           <div className="form-group">
-            <label htmlFor="Asentamiento.d_estado">Entidad Federativa</label>
+            <label htmlFor="entidadFederativa">Entidad Federativa</label>
             <input
               type="text"
               id="entidadFederativa"
-              name="Asentamiento.d_estado"
-              value={editedData ? editedData.Asentamiento.d_estado : datosPaciente.Asentamiento.d_estado}
+              name="datosPaciente.entidadFederativa"
+              value={editedData ? editedData.datosPaciente?.Asentamiento.d_estado : ''}
               readOnly={true}
               onChange={handleInputChange}
             />
@@ -258,8 +290,8 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
             <input
               type="text"
               id="lugarNacimiento"
-              name="lugarNacimiento"
-              value={editedData ? editedData.lugarNacimiento : datosPaciente.lugarNacimiento}
+              name="datosPaciente.lugarNacimiento"
+              value={editedData ? editedData.datosPaciente?.lugarNacimiento : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />
@@ -269,8 +301,8 @@ const EscanearDatos = ({ userData, datosPaciente }) => {
             <input
               type="date"
               id="fechaNacimiento"
-              name="fechaNacimiento"
-              value={editedData ? editedData.fechaNacimiento : datosPaciente.fechaNacimiento}
+              name="datosPaciente.fechaNacimiento"
+              value={editedData ? editedData.datosPaciente?.fechaNacimiento : ''}
               readOnly={!isEditing}
               onChange={handleInputChange}
             />

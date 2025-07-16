@@ -36,12 +36,13 @@ const EscanearDatosG = () => {
       } catch (error) {
         console.error('Error al cargar datos:', error);
       }
-
+      
       if (pacient) {
         console.log('paciente encontrado desde EscanearDatosG: ', pacient);
         setpacienteData(pacient); // Cargar los datos del usuario correspondiente
-
+        
         localStorage.setItem('pacienteData', JSON.stringify(pacient));
+        window.location.reload(); // Refrescar la pestaña del navegador para apagar camara
 
       } else {
         setpacienteData(null); // Si no se encuentra el ID, limpiar los datos

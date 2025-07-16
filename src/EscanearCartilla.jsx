@@ -27,13 +27,13 @@ const EscanearCartilla = () => {
           className={`tab escanear ${activeTab === 'escanear' ? 'active' : ''}`}
           onClick={() => handleTabClick('escanear')}
         >
-          Escanear Cartilla
+          Vista general
         </div>
         <div
           className={`tab cartilla ${activeTab === 'cartilla' ? 'active' : ''}`}
           onClick={() => handleTabClick('cartilla')}
         >
-          Cartilla
+          Cartilla escaneada
         </div>
       </div>
 
